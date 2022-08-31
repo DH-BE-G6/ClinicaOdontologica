@@ -7,6 +7,12 @@ public class DentistaEntity {
     private String sobrenome;
     private String matricula;
 
+    public DentistaEntity(String nome, String sobrenome, String matricula) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.matricula = matricula;
+    }
+
     public int getId() {
         return id;
     }

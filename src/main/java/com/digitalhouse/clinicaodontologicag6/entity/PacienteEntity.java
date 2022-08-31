@@ -11,6 +11,14 @@ public class PacienteEntity {
     private String endereco;
     private Date dataAlta;
 
+    public PacienteEntity(String nome, String sobrenome, String documentoIdentificacao, String endereco, Date dataAlta) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.documentoIdentificacao = documentoIdentificacao;
+        this.endereco = endereco;
+        this.dataAlta = dataAlta;
+    }
+
     public int getId() {
         return id;
     }

@@ -12,6 +12,7 @@ import java.sql.Statement;
 public class DentistaDaoImpl implements IDao<DentistaEntity> {
     private ConfigJDBC configJDBC;
     final static Logger log = Logger.getLogger(DentistaDaoImpl.class);
+    private Connection connection = configJDBC.conectarBD();
 
     public DentistaDaoImpl(ConfigJDBC configJDBC) {
         this.configJDBC = configJDBC;
@@ -35,5 +36,21 @@ public class DentistaDaoImpl implements IDao<DentistaEntity> {
             e.printStackTrace();
         }
         return dentistaEntity;
+    }
+
+    public void delete (int id){
+        Statement statement = null;
+        String query = String.format("DELETE FROM dentistaEntity WHERE id = '%s'"), id);
+
+        try {
+            statement = this.connection.createStatement();
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet resultSet = statement.getGeneratedKeys();
+
+            logger.debug("Dentista Deletado do sistema");
+            this.connection.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
