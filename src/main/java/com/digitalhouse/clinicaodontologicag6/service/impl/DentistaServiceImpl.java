@@ -32,12 +32,14 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
 
     @Override
     public List<DentistaDTO> getAll() {
-        return null;
+        List<DentistaEntity> dentistas = dentistaRepository.findAll();
+        return dentistas.stream().map(this::mapperEntityToDTO).toList();
     }
 
     @Override
     public String delete(int id) {
-        return "";
+        dentistaRepository.deleteById(id);
+        return "<h1>Dentista de id " + id + " deletado !</h1>";
     }
 
     @Override
@@ -61,5 +63,11 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
                 DentistaDTO.class
         );
         return dentista;
+    }
+
+    public DentistaDTO getByNome(String nome) {
+        DentistaEntity dentista = dentistaRepository.getByNome(nome);
+        DentistaDTO dentistaDTO = mapperEntityToDTO(dentista);
+        return dentistaDTO;
     }
 }

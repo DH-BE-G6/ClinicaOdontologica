@@ -59,4 +59,9 @@ public class DentistaController {
     public DentistaDTO update(@RequestBody DentistaDTO dentistaDTO, @PathVariable int id) {
         return dentistaService.update(dentistaDTO, id);
     }
+
+    @GetMapping("/getByNome")
+    public DentistaDTO getByNome(@RequestParam(value = "nome") String nome) {
+        return dentistaService.getByNome(nome);
+    }
 }

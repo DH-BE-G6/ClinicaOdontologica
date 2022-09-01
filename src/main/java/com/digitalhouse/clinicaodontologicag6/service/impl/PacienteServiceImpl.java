@@ -33,12 +33,14 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
 
     @Override
     public List<PacienteDTO> getAll() {
-        return null;
+        List<PacienteEntity> pacientes = pacienteRepository.findAll();
+        return pacientes.stream().map(this::mapperEntityToDTO).toList();
     }
 
     @Override
     public String delete(int id) {
-        return "";
+        pacienteRepository.deleteById(id);
+        return "<h1>Paciente de id " + id + " deletado !</h1>";
     }
 
     @Override
