@@ -21,23 +21,14 @@ public class DentistaRepository {
         return dentistaEntity;
     }
 
-    public DentistaEntity getById(int id) {
-        return dentistaMap.get(id);
-    }
-
-    public String excluir(int id){
+    public String excluir(int id) {
         dentistaMap.remove(id);
-        return "Deletado";
+        return "Feito";
     }
 
-    public DentistaEntity modificar(DentistaEntity dentistaEntity){
+    public DentistaEntity modificar(DentistaEntity dentistaEntity) {
         dentistaMap.put(dentistaEntity.getId(), dentistaEntity);
         return dentistaEntity;
-    }
-
-    public List<DentistaEntity> buscarTodos(){
-        List<DentistaEntity> dentistaEntities = new ArrayList<>(dentistaMap.values());
-        return dentistaEntities;//
     }
 
     public int buscarNome(String name) {
@@ -48,4 +39,16 @@ public class DentistaRepository {
         }
         return 0;
     }
+
+    public DentistaEntity getById(int id) {
+        return dentistaMap.get(id);
+    }
+
+
+    public List<DentistaEntity> buscarTodos() {
+        List<DentistaEntity> dentistaEntities = new ArrayList<>(dentistaMap.values());
+        return dentistaEntities;//
+    }
+
+
 }
