@@ -1,48 +1,58 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
+import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
+import com.sun.istack.NotNull;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Dentistas")
 public class DentistaEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nome;
-    private String sobrenome;
+    @Column(nullable = false)
+    @NotNull
+    private String nome, sobrenome;
+    @Column(unique = true, nullable = false)
+    @NotNull
     private String matricula;
 
-    public DentistaEntity(String nome, String sobrenome, String matricula) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.matricula = matricula;
+    public DentistaEntity(DentistaDTO dentistaDTO) {
+        this.id = dentistaDTO.getId();
+        this.nome = dentistaDTO.getNome();
+        this.sobrenome = dentistaDTO.getSobrenome();
+        this.matricula = dentistaDTO.getMatricula();
+    }
+
+    public DentistaEntity() {
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getSobrenome() {
         return sobrenome;
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
     public String getMatricula() {
         return matricula;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-
 }
