@@ -5,28 +5,13 @@ import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 public class PacienteDTO {
 
     private int id;
-    private String nome, sobrenome;
-    private String rg;
-    private String dataAlta;
-//    private EnderecoDTO endereco;
+    private String nome, sobrenome, rg, dataAlta;
+    private EnderecoDTO endereco;
 
-    public PacienteDTO(PacienteEntity pacienteEntity) {
-        this.id = pacienteEntity.getId();
-        this.nome = pacienteEntity.getNome();
-        this.sobrenome = pacienteEntity.getSobrenome();
-        this.rg = pacienteEntity.getRg();
-        this.dataAlta = pacienteEntity.getDataAlta();
-    }
-
-    public PacienteDTO() {
-    }
+    public PacienteDTO() {}
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -61,4 +46,11 @@ public class PacienteDTO {
         this.dataAlta = dataAlta;
     }
 
+    public EnderecoDTO getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoDTO endereco) {
+        this.endereco = endereco;
+    }
 }

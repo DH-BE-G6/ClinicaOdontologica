@@ -1,31 +1,30 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
-import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
 import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Pacientes")
 public class PacienteEntity {
 
-    //id int auto_increment primary key, nome varchar(255), sobrenome varchar(255), rg varchar(255), endereco int, dataAlta varchar(255);
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false)
     @NotNull
     private String nome, sobrenome;
+
     @Column(unique = true, nullable = false)
     @NotNull
     private String rg;
-    @Column(nullable = false)
-    @NotNull
+
+    @Column
     private String dataAlta;
 
-    //@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    //@JoinColumn(name = "endereco_id")
-    //private EnderecoEntity endereco;
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "endereco_id")
+    private EnderecoEntity endereco;
 
     public int getId() {
         return id;
@@ -63,11 +62,11 @@ public class PacienteEntity {
         this.dataAlta = dataAlta;
     }
 
-//    public EnderecoEntity getEndereco() {
-//        return endereco;
-//    }
-//
-//    public void setEndereco(EnderecoEntity endereco) {
-//        this.endereco = endereco;
-//    }
+    public EnderecoEntity getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoEntity endereco) {
+        this.endereco = endereco;
+    }
 }
