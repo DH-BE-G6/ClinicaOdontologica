@@ -1,19 +1,16 @@
-package com.digitalhouse.clinicaodontologicag6.entity;
+package com.digitalhouse.clinicaodontologicag6.entity.dto;
 
-import com.digitalhouse.clinicaodontologicag6.entity.EnderecoDTO;
-import com.sun.istack.NotNull;
-
-import javax.persistence.*;
+import com.digitalhouse.clinicaodontologicag6.entity.EnderecoEntity;
 
 public class EnderecoDTO {
 
     private int id;
-   
-    private String rua, numero, complemento, bairro, cidade, estado, cep;
+
+    private String logradouro, numero, complemento, bairro, cidade, estado, cep;
 
     public EnderecoDTO(EnderecoEntity enderecoEntity) {
         this.id = enderecoEntity.getId();
-        this.rua = enderecoEntity.getRua();
+        this.logradouro = enderecoEntity.getLogradouro();
         this.numero = enderecoEntity.getNumero();
         this.complemento = enderecoEntity.getComplemento();
         this.bairro = enderecoEntity.getBairro();
@@ -22,21 +19,18 @@ public class EnderecoDTO {
         this.cep = enderecoEntity.getCep();
     }
 
-    public EnderecoDTO() {
-    }
+    public EnderecoDTO() {}
 
     public int getId() {
         return id;
     }
 
-    //public void setId(int id) {this.id = id;}
-
-    public String getRua() {
-        return rua;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getNumero() {

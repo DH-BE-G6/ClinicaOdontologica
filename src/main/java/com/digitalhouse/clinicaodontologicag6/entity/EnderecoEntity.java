@@ -1,8 +1,7 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
-import com.digitalhouse.clinicaodontologicag6.entity.EnderecoDTO;
+import com.digitalhouse.clinicaodontologicag6.entity.dto.EnderecoDTO;
 import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,16 +11,17 @@ public class EnderecoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false)
     @NotNull
-    private String rua, numero, complemento, bairro, cidade, estado, cep;
+    private String logradouro, numero, complemento, bairro, cidade, estado, cep;
 
     @OneToOne(mappedBy = "endereco")
     private PacienteEntity paciente;
 
     public EnderecoEntity(EnderecoDTO enderecoDTO) {
         this.id = enderecoDTO.getId();
-        this.rua = enderecoDTO.getRua();
+        this.logradouro = enderecoDTO.getLogradouro();
         this.numero = enderecoDTO.getNumero();
         this.complemento = enderecoDTO.getNumero();
         this.bairro = enderecoDTO.getBairro();
@@ -30,18 +30,18 @@ public class EnderecoEntity {
         this.cep = enderecoDTO.getCep();
     }
 
+    public EnderecoEntity() {}
+
     public int getId() {
         return id;
     }
 
-    //public void setId(int id) {this.id = id;}
-
-    public String getRua() {
-        return rua;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getNumero() {

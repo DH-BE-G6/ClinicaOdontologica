@@ -3,18 +3,11 @@ package com.digitalhouse.clinicaodontologicag6.entity.dto;
 import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
 
 public class DentistaDTO {
+
     private int id;
     private String nome, sobrenome, matricula;
 
-    public DentistaDTO(DentistaEntity dentistaEntity) {
-        this.id = dentistaEntity.getId();
-        this.nome = dentistaEntity.getNome();
-        this.sobrenome = dentistaEntity.getSobrenome();
-        this.matricula = dentistaEntity.getMatricula();
-    }
-
-    public DentistaDTO() {
-    }
+    public DentistaDTO() {}
 
     public int getId() {
         return id;

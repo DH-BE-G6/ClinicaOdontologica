@@ -1,23 +1,19 @@
 package com.digitalhouse.clinicaodontologicag6.service.impl;
 
-import com.digitalhouse.clinicaodontologicag6.entity.EnderecoDTO;
 import com.digitalhouse.clinicaodontologicag6.entity.EnderecoEntity;
+import com.digitalhouse.clinicaodontologicag6.entity.dto.EnderecoDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IEnderecoRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
 
     @Autowired
     private IEnderecoRepository enderecoRepository;
-
-//    @Autowired
-//    private EnderecoServiceImpl enderecoService;
 
     @Override
     public EnderecoDTO create(EnderecoDTO enderecoDTO) {
@@ -35,13 +31,12 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
 
     @Override
     public List<EnderecoDTO> getAll() {
-        EnderecoEntity endereco = (EnderecoEntity) enderecoRepository.findAll();
-        return (List<EnderecoDTO>) new EnderecoDTO(endereco);
+        return null;
     }
 
     @Override
-    public void delete(int id) {
-        enderecoRepository.deleteById(id);
+    public String delete(int id) {
+        return null;
     }
 
     @Override
@@ -49,15 +44,25 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
         return null;
     }
 
+    public boolean ifEnderecoExists(int idEndereco) {
+        return enderecoRepository.existsById(idEndereco);
+    }
+
     private EnderecoEntity mapperDTOToEntity(EnderecoDTO enderecoDTO) {
         ObjectMapper objectMapper = new ObjectMapper();
-        EnderecoEntity endereco = objectMapper.convertValue(enderecoDTO, EnderecoEntity.class);
+        EnderecoEntity endereco = objectMapper.convertValue(
+                enderecoDTO,
+                EnderecoEntity.class
+        );
         return endereco;
     }
 
     private EnderecoDTO mapperEntityToDTO(EnderecoEntity enderecoEntity) {
         ObjectMapper objectMapper = new ObjectMapper();
-        EnderecoDTO endereco = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
+        EnderecoDTO endereco = objectMapper.convertValue(
+                enderecoEntity,
+                EnderecoDTO.class
+        );
         return endereco;
     }
 }
