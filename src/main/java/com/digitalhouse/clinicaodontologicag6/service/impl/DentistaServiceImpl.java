@@ -17,7 +17,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     private IDentistaRepository dentistaRepository;
     @Override
     public DentistaDTO create(DentistaDTO dentistaDTO) {
-        DentistaEntity dentistaEntity = new mapperDTOToEntity(dentistaDTO);
+        DentistaEntity dentistaEntity = mapperDTOToEntity(dentistaDTO);
         dentistaEntity = dentistaRepository.save(dentistaEntity);
         dentistaDTO = new DentistaDTO(dentistaEntity);
         return dentistaDTO;
@@ -56,5 +56,4 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
         DentistaDTO dentista = objectMapper.convertValue(dentistaEntity, DentistaDTO.class);
         return dentista;
     }
-
 }
