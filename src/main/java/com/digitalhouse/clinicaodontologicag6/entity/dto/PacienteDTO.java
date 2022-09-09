@@ -5,13 +5,18 @@ import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 public class PacienteDTO {
 
     private int id;
-    private String nome, sobrenome, rg, dataAlta;
-    private EnderecoDTO endereco;
+    private String nome, sobrenome, rg, dataAlta, logradouro, numero, complemento, bairro, cidade, estado, cep;
 
-    public PacienteDTO() {}
+    public PacienteDTO() {
+
+    }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -46,11 +51,59 @@ public class PacienteDTO {
         this.dataAlta = dataAlta;
     }
 
-    public EnderecoDTO getEndereco() {
-        return endereco;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setEndereco(EnderecoDTO endereco) {
-        this.endereco = endereco;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 }

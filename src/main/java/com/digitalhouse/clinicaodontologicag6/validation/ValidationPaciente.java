@@ -9,10 +9,20 @@ public class ValidationPaciente {
             return "Nome não preenchido";
         } else if (pacienteDTO.getSobrenome() == null) {
             return "Sobrenome não preenchido";
-        } else if (pacienteDTO.getEndereco() == null) {
-            return "Endereço não preenchido";
         } else if (pacienteDTO.getRg() == null) {
             return "RG não preenchido";
+        } else if (pacienteDTO.getLogradouro() == null) {
+            return "Logradouro não preenchido";
+        } else if (pacienteDTO.getNumero() == null) {
+            return "Número não preenchido";
+        } else if (pacienteDTO.getBairro() == null) {
+            return "Bairro não preenchido";
+        } else if (pacienteDTO.getCidade() == null) {
+            return "Cidade não preenchida";
+        } else if (pacienteDTO.getEstado() == null) {
+            return "Estado não preenchido";
+        } else if (pacienteDTO.getCep() == null) {
+            return "CEP não preenchido";
         }
         return null;
     }

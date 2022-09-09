@@ -1,7 +1,5 @@
 package com.digitalhouse.clinicaodontologicag6.entity.dto;
 
-import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
-
 public class DentistaDTO {
 
     private int id;
