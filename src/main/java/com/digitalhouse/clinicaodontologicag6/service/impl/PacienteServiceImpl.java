@@ -1,8 +1,8 @@
 package com.digitalhouse.clinicaodontologicag6.service.impl;
 
-import com.digitalhouse.clinicaodontologicag6.entity.EnderecoEntity;
+import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
-import com.digitalhouse.clinicaodontologicag6.entity.dto.EnderecoDTO;
+import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
@@ -17,22 +17,10 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
     @Autowired
     private IPacienteRepository pacienteRepository;
 
-    @Autowired
-    private EnderecoServiceImpl enderecoService;
-
     @Override
     public PacienteDTO create(PacienteDTO pacienteDTO) {
         PacienteEntity pacienteEntity = mapperDTOToEntity(pacienteDTO);
-        EnderecoDTO enderecoDTO;
-        int idEndereco = pacienteEntity.getEndereco().getId();
-
-        if (enderecoService.ifEnderecoExists(idEndereco)) {
-            enderecoDTO = enderecoService.getById(idEndereco);
-            EnderecoEntity endereco = new EnderecoEntity(enderecoDTO);
-            pacienteEntity.setEndereco(endereco);
-            pacienteEntity = pacienteRepository.save(pacienteEntity);
-        }
-
+        pacienteEntity = pacienteRepository.save(pacienteEntity);
         pacienteDTO = mapperEntityToDTO(pacienteEntity);
         return pacienteDTO;
     }
