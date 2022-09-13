@@ -1,6 +1,5 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
-import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
 import com.sun.istack.NotNull;
 import javax.persistence.*;
 
@@ -51,10 +50,6 @@ public class PacienteEntity {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {

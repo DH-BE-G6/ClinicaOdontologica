@@ -57,4 +57,9 @@ public class PacienteController {
     public PacienteDTO update(@RequestBody PacienteDTO pacienteDTO, @PathVariable int id) {
         return pacienteService.update(pacienteDTO, id);
     }
+
+    @GetMapping("/getByNome")
+    public PacienteDTO getByNome(@RequestParam(value = "nome") String nome) {
+        return pacienteService.getByNome(nome);
+    }
 }

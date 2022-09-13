@@ -1,12 +1,11 @@
 package com.digitalhouse.clinicaodontologicag6.service.impl;
 
-import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
-import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,5 +62,11 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
                 PacienteDTO.class
         );
         return paciente;
+    }
+
+    public PacienteDTO getByNome(String nome) {
+        PacienteEntity paciente = pacienteRepository.getByNome(nome);
+        PacienteDTO pacienteDTO = mapperEntityToDTO(paciente);
+        return pacienteDTO;
     }
 }
