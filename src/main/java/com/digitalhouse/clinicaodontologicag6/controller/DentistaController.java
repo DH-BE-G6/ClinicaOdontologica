@@ -45,7 +45,7 @@ public class DentistaController {
         return dentistaService.getById(id);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public List<DentistaDTO> getAll() {
         return dentistaService.getAll();
     }

@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ClinicaOdontologicaG6" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.digitalhouse.clinicaodontologicag6.ClinicaOdontologicaG6Application" />
-    <module name="ClinicaOdontologicaG6" />
+    <module name="ClinicaOdontologica" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
