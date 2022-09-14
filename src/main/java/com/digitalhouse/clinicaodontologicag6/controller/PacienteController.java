@@ -59,7 +59,7 @@ public class PacienteController {
     }
 
     @GetMapping("/getByNome")
-    public PacienteDTO getByNome(@RequestParam(value = "nome") String nome) {
+    public List<PacienteDTO> getByNome(@RequestParam(value = "nome") String nome) {
         return pacienteService.getByNome(nome);
     }
 }

@@ -1,6 +1,7 @@
 package com.digitalhouse.clinicaodontologicag6.service.impl;
 
 import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
+import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IDentistaRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
@@ -65,9 +66,8 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
         return dentista;
     }
 
-    public DentistaDTO getByNome(String nome) {
-        DentistaEntity dentista = dentistaRepository.getByNome(nome);
-        DentistaDTO dentistaDTO = mapperEntityToDTO(dentista);
-        return dentistaDTO;
+    public List<DentistaDTO> getByNome(String nome) {
+        List<DentistaEntity> dentistas = dentistaRepository.getByNome(nome);
+        return dentistas.stream().map(this::mapperEntityToDTO).toList();
     }
 }

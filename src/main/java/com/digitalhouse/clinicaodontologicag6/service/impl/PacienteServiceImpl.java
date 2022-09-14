@@ -66,9 +66,8 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
         return paciente;
     }
 
-    public PacienteDTO getByNome(String nome) {
-        PacienteEntity paciente = pacienteRepository.getByNome(nome);
-        PacienteDTO pacienteDTO = mapperEntityToDTO(paciente);
-        return pacienteDTO;
+    public List<PacienteDTO> getByNome(String nome) {
+        List<PacienteEntity> pacientes = pacienteRepository.getByNome(nome);
+        return pacientes.stream().map(this::mapperEntityToDTO).toList();
     }
 }

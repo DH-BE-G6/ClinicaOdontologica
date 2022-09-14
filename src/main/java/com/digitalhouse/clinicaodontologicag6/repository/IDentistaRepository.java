@@ -4,7 +4,9 @@ import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface IDentistaRepository extends JpaRepository<DentistaEntity, Integer> {
     @Query("FROM DentistaEntity p where p.nome = :nome")
-    DentistaEntity getByNome(String nome);
+    List<DentistaEntity> getByNome(String nome);
 }

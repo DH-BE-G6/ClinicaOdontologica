@@ -61,7 +61,7 @@ public class DentistaController {
     }
 
     @GetMapping("/getByNome")
-    public DentistaDTO getByNome(@RequestParam(value = "nome") String nome) {
+    public List<DentistaDTO> getByNome(@RequestParam(value = "nome") String nome) {
         return dentistaService.getByNome(nome);
     }
 }
