@@ -8,4 +8,5 @@ public interface IClinicaService<T> {
     List<T> getAll();
     String delete(int id);
     T update(T t, int id);
+
 }
