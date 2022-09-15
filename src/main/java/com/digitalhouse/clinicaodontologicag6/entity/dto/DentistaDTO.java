@@ -1,11 +1,21 @@
 package com.digitalhouse.clinicaodontologicag6.entity.dto;
 
+import com.digitalhouse.clinicaodontologicag6.entity.ConsultaEntity;
+
+import java.util.Set;
+
 public class DentistaDTO {
 
     private int id;
     private String nome, sobrenome, matricula;
 
+    private Set<ConsultaEntity> consultas;
+
     public DentistaDTO() {}
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -33,5 +43,13 @@ public class DentistaDTO {
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    public Set<ConsultaEntity> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(Set<ConsultaEntity> consultas) {
+        this.consultas = consultas;
     }
 }

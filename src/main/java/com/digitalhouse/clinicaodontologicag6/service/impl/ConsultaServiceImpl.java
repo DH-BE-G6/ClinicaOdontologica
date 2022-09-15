@@ -19,7 +19,6 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
 
     @Override
     public ConsultaDTO create(ConsultaDTO consultaDTO) {
-
         ConsultaEntity consultaEntity = mapperDTOToEntity(consultaDTO);
         consultaEntity = iConsultaRepository.save(consultaEntity);
         consultaDTO = new ConsultaDTO(consultaEntity);

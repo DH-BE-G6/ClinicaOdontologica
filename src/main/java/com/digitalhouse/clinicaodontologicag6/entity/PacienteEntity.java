@@ -2,12 +2,13 @@ package com.digitalhouse.clinicaodontologicag6.entity;
 
 import com.sun.istack.NotNull;
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Pacientes")
 @SecondaryTable(name = "Enderecos")
 public class PacienteEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
@@ -47,6 +48,16 @@ public class PacienteEntity {
 
     @Column(table = "Enderecos", name = "cep", nullable = false)
     private String cep;
+
+    @OneToMany(mappedBy = "paciente")
+    private Set<ConsultaEntity> consultas;
+
+    public PacienteEntity() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -140,4 +151,11 @@ public class PacienteEntity {
         this.cep = cep;
     }
 
+    public Set<ConsultaEntity> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(Set<ConsultaEntity> consultas) {
+        this.consultas = consultas;
+    }
 }

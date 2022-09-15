@@ -4,6 +4,7 @@ import com.digitalhouse.clinicaodontologicag6.entity.ConsultaEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,16 +12,7 @@ public class ConsultaDTO {
     private Integer id;
     private Integer idDentista;
     private Integer idPaciente;
-    private LocalDate data;
-    private LocalTime hora;
-
-    public ConsultaDTO(ConsultaEntity consultaEntity) {
-        this.id = consultaEntity.getId();
-        this.idDentista = consultaEntity.getIdDentista();
-        this.idPaciente = consultaEntity.getIdPaciente();
-        this.data = consultaEntity.getData();
-        this.hora = consultaEntity.getHora();
-    }
+    private LocalDateTime dataHoraConsulta;
 
     public ConsultaDTO() {
     }
@@ -49,19 +41,11 @@ public class ConsultaDTO {
         this.idPaciente = idPaciente;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDateTime getDataHoraConsulta() {
+        return dataHoraConsulta;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public LocalTime getHora() {
-        return hora;
-    }
-
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
+    public void setDataHoraConsulta(LocalDateTime dataHoraConsulta) {
+        this.dataHoraConsulta = dataHoraConsulta;
     }
 }

@@ -1,69 +1,65 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
+import com.digitalhouse.clinicaodontologicag6.entity.compositeKey.ConsultaEntityKey;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.ConsultaDTO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
-@Table(name = "Consulta")
-public class ConsultaEntity<Consulta> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Integer idDentista;
-    private Integer idPaciente;
-    private LocalDate data;
-    private LocalTime hora;
+public class ConsultaEntity {
 
-    public ConsultaEntity (ConsultaDTO consultaDTO) {
-        this.idDentista = consultaDTO.getIdDentista();
-        this.idPaciente = consultaDTO.getIdPaciente();
-        this.data = consultaDTO.getData();
-        this.hora = consultaDTO.getHora();
-    }
+    @EmbeddedId
+    ConsultaEntityKey id;
+
+    @ManyToOne
+    @MapsId("pacienteId")
+    @JoinColumn(name = "paciente_id")
+    private PacienteEntity paciente;
+
+    @ManyToOne
+    @MapsId("dentistaId")
+    @JoinColumn(name = "dentista_id")
+    private DentistaEntity dentista;
+
+    @Column(name = "dataHoraConsulta", updatable = true, nullable = false, unique = true)
+    private LocalDateTime dataHoraConsulta;
 
     public ConsultaEntity() {
     }
 
-    public Integer getId() {
+    public ConsultaEntityKey getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(ConsultaEntityKey id) {
         this.id = id;
     }
 
-    public Integer getIdDentista() {
-        return idDentista;
+    public PacienteEntity getPaciente() {
+        return paciente;
     }
 
-    public void setIdDentista(Integer idDentista) {
-        this.idDentista = idDentista;
+    public void setPaciente(PacienteEntity paciente) {
+        this.paciente = paciente;
     }
 
-    public Integer getIdPaciente() {
-        return idPaciente;
+    public DentistaEntity getDentista() {
+        return dentista;
     }
 
-    public void setIdPaciente(Integer idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setDentista(DentistaEntity dentista) {
+        this.dentista = dentista;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDateTime getDataHoraConsulta() {
+        return dataHoraConsulta;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public LocalTime getHora() {
-        return hora;
-    }
-
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
+    public void setDataHoraConsulta(LocalDateTime dataHoraConsulta) {
+        this.dataHoraConsulta = dataHoraConsulta;
     }
 }
