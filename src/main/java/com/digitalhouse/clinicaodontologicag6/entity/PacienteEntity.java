@@ -1,22 +1,23 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "Pacientes")
 @SecondaryTable(name = "Enderecos")
-@Getter
-@Setter
 public class PacienteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "nome", nullable = false)
     @NotNull

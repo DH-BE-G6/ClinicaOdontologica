@@ -25,7 +25,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public DentistaDTO getById(int id) {
+    public DentistaDTO getById(Long id) {
         DentistaEntity dentista = dentistaRepository.findById(id).get();
         DentistaDTO dentistaDTO = mapperEntityToDTO(dentista);
         return dentistaDTO;
@@ -49,7 +49,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public DentistaDTO update(DentistaDTO dentistaDTO, int id) {
+    public DentistaDTO update(DentistaDTO dentistaDTO, Long id) {
         DentistaEntity dentistaEntity = dentistaRepository.findById(id).get();
         dentistaEntity.setNome(dentistaDTO.getNome());
         dentistaEntity.setSobrenome(dentistaDTO.getSobrenome());
@@ -59,9 +59,9 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public String delete(int id) {
+    public String delete(Long id) {
         dentistaRepository.deleteById(id);
-        return "Dentista excluído! (ID: " + id + ")";
+        return "Dentista excluído (ID: " + id + ")";
     }
 
     private DentistaEntity mapperDTOToEntity(DentistaDTO dentistaDTO) {
@@ -80,6 +80,12 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
                 DentistaDTO.class
         );
         return dentista;
+    }
+
+    public DentistaEntity findById(Long dentista) {
+        return dentistaRepository.findById(dentista).orElseThrow(() -> {
+            throw new RuntimeException("Dentista não encontrado");
+        });
     }
 
 }

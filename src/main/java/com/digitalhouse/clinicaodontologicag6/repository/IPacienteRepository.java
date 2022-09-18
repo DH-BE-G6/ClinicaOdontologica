@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface IPacienteRepository extends JpaRepository<PacienteEntity, Integer> {
+public interface IPacienteRepository extends JpaRepository<PacienteEntity, Long> {
 
     //HQL
     @Query("FROM PacienteEntity p where p.nome = :nome")

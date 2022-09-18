@@ -25,7 +25,7 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
     }
 
     @Override
-    public PacienteDTO getById(int id) {
+    public PacienteDTO getById(Long id) {
         PacienteEntity paciente = pacienteRepository.findById(id).get();
         PacienteDTO pacienteDTO = mapperEntityToDTO(paciente);
         return pacienteDTO;
@@ -54,7 +54,7 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
     }
 
     @Override
-    public PacienteDTO update(PacienteDTO pacienteDTO, int id) {
+    public PacienteDTO update(PacienteDTO pacienteDTO, Long id) {
         PacienteEntity pacienteEntity = pacienteRepository.findById(id).get();
         pacienteEntity.setNome(pacienteDTO.getNome());
         pacienteEntity.setSobrenome(pacienteDTO.getSobrenome());
@@ -70,7 +70,7 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
     }
 
     @Override
-    public String delete(int id) {
+    public String delete(Long id) {
         pacienteRepository.deleteById(id);
         return "Paciente excluído! (ID: " + id + ")";
     }
@@ -92,4 +92,11 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
         );
         return paciente;
     }
+
+    public PacienteEntity findById(Long paciente) {
+        return pacienteRepository.findById(paciente).orElseThrow(() -> {
+            throw new RuntimeException("Paciente não encontrado!");
+        });
+    }
+
 }

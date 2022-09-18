@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface IDentistaRepository extends JpaRepository<DentistaEntity, Integer> {
+public interface IDentistaRepository extends JpaRepository<DentistaEntity, Long> {
 
     //HQL
     @Query("FROM DentistaEntity d where d.nome = :nome")

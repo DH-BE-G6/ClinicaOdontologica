@@ -2,17 +2,16 @@ package com.digitalhouse.clinicaodontologicag6.service.impl;
 
 import com.digitalhouse.clinicaodontologicag6.entity.ConsultaEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
+import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.ConsultaDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IConsultaRepository;
-import com.digitalhouse.clinicaodontologicag6.repository.IDentistaRepository;
-import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
@@ -20,27 +19,61 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     @Autowired
     private IConsultaRepository consultaRepository;
 
+    @Autowired
+    private DentistaServiceImpl dentistaService;
+
+    @Autowired
+    private PacienteServiceImpl pacienteService;
+
     @Override
     public ConsultaDTO create(ConsultaDTO consultaDTO) {
-        ConsultaEntity consultaEntity = mapperDTOToEntity(consultaDTO);
-        consultaEntity = consultaRepository.save(consultaEntity);
-        consultaDTO = mapperEntityToDTO(consultaEntity);
-        return consultaDTO;
+        DentistaEntity dentista = checkDentista(consultaDTO);
+        PacienteEntity paciente = checkPaciente(consultaDTO);
+
+        ConsultaEntity consulta = ConsultaEntity.builder()
+                .id(consultaDTO.getId())
+                .dentista(dentista.getId())
+                .paciente(paciente.getId())
+                .dataConsulta(consultaDTO.getDataConsulta())
+                .build();
+
+        var consultaResponse = new ConsultaDTO(consultaRepository.save(consulta));
+        return consultaResponse;
+    }
+
+    private DentistaEntity checkDentista(ConsultaDTO consultaDTO) {
+        DentistaEntity dentista = dentistaService.findById(consultaDTO.getDentista());
+        if (Objects.isNull(dentista)) {
+            throw new RuntimeException("Dentista não encontrado");
+        }
+        ConsultaEntity consulta = consultaRepository.findByConsultaByDentistaAndDataConsulta(consultaDTO.getDentista(), consultaDTO.getDataConsulta());
+        if(Objects.nonNull(consulta)) {
+            throw new RuntimeException("O Dentista já possui consulta marcada para esta data");
+        }
+        return dentista;
+    }
+
+    private PacienteEntity checkPaciente(ConsultaDTO consultaDTO) {
+        PacienteEntity paciente = pacienteService.findById(consultaDTO.getPaciente());
+        if (Objects.isNull(paciente)) {
+            throw new RuntimeException("Paciente não encontrado");
+        }
+        return paciente;
     }
 
     @Override
-    public ConsultaDTO getById(int id) {
+    public ConsultaDTO getById(Long id) {
         ConsultaEntity consulta = consultaRepository.findById(id).get();
         ConsultaDTO consultaDTO = mapperEntityToDTO(consulta);
         return consultaDTO;
     }
 
-    public List<ConsultaDTO> getByDentista(int dentista) {
+    public List<ConsultaDTO> getByDentista(Long dentista) {
         List<ConsultaEntity> consultas = consultaRepository.getByDentista(dentista);
         return consultas.stream().map(this::mapperEntityToDTO).toList();
     }
 
-    public List<ConsultaDTO> getByPaciente(int paciente) {
+    public List<ConsultaDTO> getByPaciente(Long paciente) {
         List<ConsultaEntity> consultas = consultaRepository.getByPaciente(paciente);
         return consultas.stream().map(this::mapperEntityToDTO).toList();
     }
@@ -57,18 +90,17 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     }
 
     @Override
-    public String delete(int id) {
+    public String delete(Long id) {
         consultaRepository.deleteById(id);
-        return "Consulta excluída! (ID: " + id + ")";
+        return "Consulta excluída (ID: " + id + ")";
     }
 
     @Override
-    public ConsultaDTO update(ConsultaDTO consultaDTO, int id) {
+    public ConsultaDTO update(ConsultaDTO consultaDTO, Long id) {
         ConsultaEntity consultaEntity = consultaRepository.findById(id).get();
         consultaEntity.setPaciente(consultaDTO.getPaciente());
         consultaEntity.setDentista(consultaDTO.getDentista());
         consultaEntity.setDataConsulta(consultaDTO.getDataConsulta());
-        consultaEntity.setConsultaFinished(consultaDTO.isConsultaFinished());
         consultaRepository.save(consultaEntity);
         return consultaDTO;
     }

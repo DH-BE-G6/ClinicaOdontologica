@@ -37,7 +37,7 @@ public class PacienteController {
     }
 
     @RequestMapping(value = "/buscar", params = "id", method = RequestMethod.GET)
-    public ResponseEntity<PacienteDTO> getById(@RequestParam int id) {
+    public ResponseEntity<PacienteDTO> getById(@RequestParam Long id) {
         ResponseEntity responseEntity = null;
         PacienteDTO pacienteDTO = pacienteService.getById(id);
         if (pacienteDTO != null) {
@@ -56,6 +56,18 @@ public class PacienteController {
             responseEntity = new ResponseEntity<>(pacienteDTO, HttpStatus.OK);
         } else {
             responseEntity = new ResponseEntity<>("Nome não encontrado", HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    @RequestMapping(value = "/buscar", params = "cidade", method = RequestMethod.GET)
+    public ResponseEntity<List<PacienteDTO>> getByCidade(@RequestParam String cidade) {
+        ResponseEntity responseEntity = null;
+        List<PacienteDTO> pacienteDTO = pacienteService.getByCidade(cidade);
+        if (pacienteDTO != null) {
+            responseEntity = new ResponseEntity<>(pacienteDTO, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>("Cidade não encontrada", HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
@@ -85,7 +97,7 @@ public class PacienteController {
     }
 
     @RequestMapping(value = "atualizar", params = "id", method = RequestMethod.PUT)
-    public ResponseEntity<PacienteDTO> update(@RequestBody PacienteDTO pacienteDTO, @RequestParam int id) {
+    public ResponseEntity<PacienteDTO> update(@RequestBody PacienteDTO pacienteDTO, @RequestParam Long id) {
         ResponseEntity responseEntity = null;
         try {
             PacienteDTO pacienteDTO1 = pacienteService.update(pacienteDTO, id);
@@ -97,7 +109,7 @@ public class PacienteController {
     }
 
     @DeleteMapping("/excluir")
-    public ResponseEntity<String> delete(@RequestParam int id) {
+    public ResponseEntity<String> delete(@RequestParam Long id) {
         ResponseEntity responseEntity = null;
         try {
             pacienteService.delete(id);

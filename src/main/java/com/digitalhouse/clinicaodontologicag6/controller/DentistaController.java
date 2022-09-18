@@ -37,7 +37,7 @@ public class DentistaController {
     }
 
     @RequestMapping(value = "/buscar", params = "id", method = RequestMethod.GET)
-    public ResponseEntity<DentistaDTO> getById(@RequestParam int id) {
+    public ResponseEntity<DentistaDTO> getById(@RequestParam Long id) {
         ResponseEntity responseEntity = null;
         DentistaDTO dentistaDTO = dentistaService.getById(id);
         if (dentistaDTO != null) {
@@ -85,7 +85,7 @@ public class DentistaController {
     }
 
     @RequestMapping(value = "atualizar", params = "id", method = RequestMethod.PUT)
-    public ResponseEntity<DentistaDTO> update(@RequestBody DentistaDTO dentistaDTO, @RequestParam int id) {
+    public ResponseEntity<DentistaDTO> update(@RequestBody DentistaDTO dentistaDTO, @RequestParam Long id) {
         ResponseEntity responseEntity = null;
         try {
             DentistaDTO dentistaDTO1 = dentistaService.update(dentistaDTO, id);
@@ -97,7 +97,7 @@ public class DentistaController {
     }
 
     @DeleteMapping("/excluir")
-    public ResponseEntity<String> delete(@RequestParam int id) {
+    public ResponseEntity<String> delete(@RequestParam Long id) {
         ResponseEntity responseEntity = null;
         try {
             dentistaService.delete(id);

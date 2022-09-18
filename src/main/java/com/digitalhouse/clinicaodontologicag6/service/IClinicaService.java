@@ -5,9 +5,9 @@ import java.util.List;
 public interface IClinicaService<T> {
 
     T create(T t);
-    T getById(int id);
+    T getById(Long id);
     List<T> getAll();
-    String delete(int id);
-    T update(T t, int id);
+    String delete(Long id);
+    T update(T t, Long id);
 
 }

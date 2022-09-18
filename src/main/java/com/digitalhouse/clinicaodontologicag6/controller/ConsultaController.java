@@ -20,16 +20,16 @@ public class ConsultaController {
     public ResponseEntity<ConsultaDTO> create(@RequestBody ConsultaDTO consultaDTO) {
         ResponseEntity responseEntity = null;
         try {
-            ConsultaDTO consultaDTO1 = consultaService.create(consultaDTO);
-            responseEntity = new ResponseEntity<>(consultaDTO1, HttpStatus.CREATED);
+            consultaService.create(consultaDTO);
+            responseEntity = new ResponseEntity<>(consultaDTO, HttpStatus.CREATED);
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<>("Erro ao cadastrar consulta!", HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
 
     @RequestMapping(value = "/buscar", params = "id", method = RequestMethod.GET)
-    public ResponseEntity<ConsultaDTO> getById(@RequestParam int id) {
+    public ResponseEntity<ConsultaDTO> getById(@RequestParam Long id) {
         ResponseEntity responseEntity = null;
         ConsultaDTO consultaDTO = consultaService.getById(id);
         if (consultaDTO != null) {
@@ -41,25 +41,25 @@ public class ConsultaController {
     }
 
     @RequestMapping(value = "/buscar", params = "dentista", method = RequestMethod.GET)
-    public ResponseEntity<List<ConsultaDTO>> getByDentista(@RequestParam int dentista) {
+    public ResponseEntity<List<ConsultaDTO>> getByDentista(@RequestParam Long dentista) {
         ResponseEntity responseEntity = null;
         List<ConsultaDTO> consultaDTO = consultaService.getByDentista(dentista);
         if (consultaDTO != null) {
             responseEntity = new ResponseEntity<>(consultaDTO, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>("Consultas para o Dentista informado não encontradas", HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("Não há consultas agendadas para o dentista informado.", HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
 
     @RequestMapping(value = "/buscar", params = "paciente", method = RequestMethod.GET)
-    public ResponseEntity<List<ConsultaDTO>> getByPaciente(@RequestParam int paciente) {
+    public ResponseEntity<List<ConsultaDTO>> getByPaciente(@RequestParam Long paciente) {
         ResponseEntity responseEntity = null;
         List<ConsultaDTO> consultaDTO = consultaService.getByPaciente(paciente);
         if (consultaDTO != null) {
             responseEntity = new ResponseEntity<>(consultaDTO, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>("Consultas para o Paciente informado não encontradas", HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("Não há consultas agendadas para o paciente informado.", HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
@@ -71,7 +71,43 @@ public class ConsultaController {
         if (consultaDTO != null) {
             responseEntity = new ResponseEntity<>(consultaDTO, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>("Consultas para a data informada não encontradas", HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<>("Não há consultas agendadas para a data informada.", HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    @RequestMapping(value = "/listar", method = RequestMethod.GET)
+    public ResponseEntity<List<ConsultaDTO>> getAll() {
+        ResponseEntity responseEntity = null;
+        List<ConsultaDTO> consultaDTOList = consultaService.getAll();
+        if (consultaDTOList != null) {
+            responseEntity = new ResponseEntity<>(consultaDTOList, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>("Nenhum dentista encontrado", HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    @RequestMapping(value = "atualizar", params = "id", method = RequestMethod.PUT)
+    public ResponseEntity<ConsultaDTO> update(@RequestBody ConsultaDTO consultaDTO, @RequestParam Long id) {
+        ResponseEntity responseEntity = null;
+        try {
+            ConsultaDTO consultaDTO1 = consultaService.update(consultaDTO, id);
+            responseEntity = new ResponseEntity<>(consultaDTO1, HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>("ID não encontrada", HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    @DeleteMapping("/excluir")
+    public ResponseEntity<String> delete(@RequestParam Long id) {
+        ResponseEntity responseEntity = null;
+        try {
+            consultaService.delete(id);
+            responseEntity = new ResponseEntity<>("Consulta excluída com sucesso", HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>("Consulta não encontrada", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

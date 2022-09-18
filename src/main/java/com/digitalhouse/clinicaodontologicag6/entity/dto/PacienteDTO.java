@@ -2,16 +2,15 @@ package com.digitalhouse.clinicaodontologicag6.entity.dto;
 
 import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
+@AllArgsConstructor
+@Builder
 public class PacienteDTO {
 
-    private int id;
+    private Long id;
     private String nome;
     private String sobrenome;
     private String rg;
