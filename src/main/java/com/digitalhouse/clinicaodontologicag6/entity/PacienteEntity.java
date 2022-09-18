@@ -1,14 +1,18 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
 import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "Pacientes")
 @SecondaryTable(name = "Enderecos")
+@Getter
+@Setter
 public class PacienteEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
@@ -19,6 +23,7 @@ public class PacienteEntity {
     private String nome;
 
     @Column(name = "sobrenome", nullable = false)
+    @NotNull
     private String sobrenome;
 
     @Column(name = "rg", unique = true, nullable = false)
@@ -29,133 +34,30 @@ public class PacienteEntity {
     private String dataAlta;
 
     @Column(table = "Enderecos", name = "logradouro", nullable = false)
+    @NotNull
     private String logradouro;
 
     @Column(table = "Enderecos", name = "numero", nullable = false)
+    @NotNull
     private String numero;
 
     @Column(table = "Enderecos", name = "complemento")
     private String complemento;
 
     @Column(table = "Enderecos", name = "bairro", nullable = false)
+    @NotNull
     private String bairro;
 
     @Column(table = "Enderecos", name = "cidade", nullable = false)
+    @NotNull
     private String cidade;
 
     @Column(table = "Enderecos", name = "estado", nullable = false)
+    @NotNull
     private String estado;
 
     @Column(table = "Enderecos", name = "cep", nullable = false)
+    @NotNull
     private String cep;
 
-    @OneToMany(mappedBy = "paciente")
-    private Set<ConsultaEntity> consultas;
-
-    public PacienteEntity() {
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public String getDataAlta() {
-        return dataAlta;
-    }
-
-    public void setDataAlta(String dataAlta) {
-        this.dataAlta = dataAlta;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public Set<ConsultaEntity> getConsultas() {
-        return consultas;
-    }
-
-    public void setConsultas(Set<ConsultaEntity> consultas) {
-        this.consultas = consultas;
-    }
 }

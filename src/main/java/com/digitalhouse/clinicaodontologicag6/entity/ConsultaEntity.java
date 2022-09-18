@@ -1,65 +1,36 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
-import com.digitalhouse.clinicaodontologicag6.entity.compositeKey.ConsultaEntityKey;
-import com.digitalhouse.clinicaodontologicag6.entity.dto.ConsultaDTO;
+import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 
 @Entity
+@Table(name = "Consultas")
+@Getter
+@Setter
 public class ConsultaEntity {
 
-    @EmbeddedId
-    ConsultaEntityKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private int id;
 
-    @ManyToOne
-    @MapsId("pacienteId")
-    @JoinColumn(name = "paciente_id")
-    private PacienteEntity paciente;
+    @Column(name = "dentista", nullable = false)
+    @NotNull
+    private Integer dentista;
 
-    @ManyToOne
-    @MapsId("dentistaId")
-    @JoinColumn(name = "dentista_id")
-    private DentistaEntity dentista;
+    @Column(name = "paciente", nullable = false)
+    @NotNull
+    private Integer paciente;
 
-    @Column(name = "dataHoraConsulta", updatable = true, nullable = false, unique = true)
-    private LocalDateTime dataHoraConsulta;
+    @Column(name = "dataConsulta", nullable = false)
+    @NotNull
+    private String dataConsulta;
 
-    public ConsultaEntity() {
-    }
+    @Column(name = "isConsultaFinished", nullable = false)
+    @NotNull
+    private boolean isConsultaFinished;
 
-    public ConsultaEntityKey getId() {
-        return id;
-    }
-
-    public void setId(ConsultaEntityKey id) {
-        this.id = id;
-    }
-
-    public PacienteEntity getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(PacienteEntity paciente) {
-        this.paciente = paciente;
-    }
-
-    public DentistaEntity getDentista() {
-        return dentista;
-    }
-
-    public void setDentista(DentistaEntity dentista) {
-        this.dentista = dentista;
-    }
-
-    public LocalDateTime getDataHoraConsulta() {
-        return dataHoraConsulta;
-    }
-
-    public void setDataHoraConsulta(LocalDateTime dataHoraConsulta) {
-        this.dataHoraConsulta = dataHoraConsulta;
-    }
 }

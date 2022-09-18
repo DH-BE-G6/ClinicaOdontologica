@@ -1,12 +1,17 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
 import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "Dentistas")
+@Getter
+@Setter
 public class DentistaEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
@@ -17,54 +22,11 @@ public class DentistaEntity {
     private String nome;
 
     @Column(name = "sobrenome", nullable = false)
+    @NotNull
     private String sobrenome;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "matricula", unique = true, nullable = false)
     @NotNull
     private String matricula;
 
-    @OneToMany(mappedBy = "dentista")
-    private Set<ConsultaEntity> consultas;
-    public DentistaEntity() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public Set<ConsultaEntity> getConsultas() {
-        return consultas;
-    }
-
-    public void setConsultas(Set<ConsultaEntity> consultas) {
-        this.consultas = consultas;
-    }
 }

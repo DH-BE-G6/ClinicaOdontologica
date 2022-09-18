@@ -1,79 +1,94 @@
 package com.digitalhouse.clinicaodontologicag6.service.impl;
 
 import com.digitalhouse.clinicaodontologicag6.entity.ConsultaEntity;
+import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.ConsultaDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IConsultaRepository;
+import com.digitalhouse.clinicaodontologicag6.repository.IDentistaRepository;
+import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
 
     @Autowired
-    IConsultaRepository iConsultaRepository;
+    private IConsultaRepository consultaRepository;
 
     @Override
     public ConsultaDTO create(ConsultaDTO consultaDTO) {
         ConsultaEntity consultaEntity = mapperDTOToEntity(consultaDTO);
-        consultaEntity = iConsultaRepository.save(consultaEntity);
-        consultaDTO = new ConsultaDTO(consultaEntity);
+        consultaEntity = consultaRepository.save(consultaEntity);
+        consultaDTO = mapperEntityToDTO(consultaEntity);
         return consultaDTO;
-    }
-
-    @Override
-    public List<ConsultaDTO> getAll() {
-        List<ConsultaEntity> consultaEntities = iConsultaRepository.findAll();
-        List<ConsultaDTO> consultaDTOS = new ArrayList<>();
-
-        for (ConsultaEntity consultaEntity : consultaEntities){
-            ConsultaDTO consultaDTO = mapperEntityToDTO(consultaEntity);
-            consultaDTOS.add(consultaDTO);
-        }
-        return consultaDTOS;
-    }
-
-    @Override
-    public String delete(int id) {
-        iConsultaRepository.deleteById(id);
-        return "Removido";
-    }
-
-    @Override
-    public ConsultaDTO update(ConsultaDTO consultaDTO, int id) {
-        ConsultaEntity consultaEntity = mapperDTOToEntity(consultaDTO);
-
-        if(iConsultaRepository.findById(id) != null){
-            consultaEntity.setId(id);
-            return consultaDTO;
-        } else {
-            iConsultaRepository.save(consultaEntity);
-            return consultaDTO;
-        }
     }
 
     @Override
     public ConsultaDTO getById(int id) {
-        ConsultaEntity consultaEntity = iConsultaRepository.findById(id).get();
-        ConsultaDTO consultaDTO = mapperEntityToDTO(consultaEntity);
+        ConsultaEntity consulta = consultaRepository.findById(id).get();
+        ConsultaDTO consultaDTO = mapperEntityToDTO(consulta);
         return consultaDTO;
     }
 
-    private ConsultaEntity mapperDTOToEntity(ConsultaDTO consultaDTO){
-        ObjectMapper objectMapper = new ObjectMapper();
-        ConsultaEntity consultaEntity = objectMapper.convertValue(consultaDTO, ConsultaEntity.class);
-        return consultaEntity;
+    public List<ConsultaDTO> getByDentista(int dentista) {
+        List<ConsultaEntity> consultas = consultaRepository.getByDentista(dentista);
+        return consultas.stream().map(this::mapperEntityToDTO).toList();
     }
 
-    private ConsultaDTO mapperEntityToDTO(ConsultaEntity consultaEntity){
-        ObjectMapper objectMapper = new ObjectMapper();
-        ConsultaDTO consultaDTO = objectMapper.convertValue(consultaEntity, ConsultaDTO.class);
+    public List<ConsultaDTO> getByPaciente(int paciente) {
+        List<ConsultaEntity> consultas = consultaRepository.getByPaciente(paciente);
+        return consultas.stream().map(this::mapperEntityToDTO).toList();
+    }
+
+    public List<ConsultaDTO> getByData(String data) {
+        List<ConsultaEntity> consultas = consultaRepository.getByData(data);
+        return consultas.stream().map(this::mapperEntityToDTO).toList();
+    }
+
+    @Override
+    public List<ConsultaDTO> getAll() {
+        List<ConsultaEntity> consultas = consultaRepository.findAll();
+        return consultas.stream().map(this::mapperEntityToDTO).toList();
+    }
+
+    @Override
+    public String delete(int id) {
+        consultaRepository.deleteById(id);
+        return "Consulta excluída! (ID: " + id + ")";
+    }
+
+    @Override
+    public ConsultaDTO update(ConsultaDTO consultaDTO, int id) {
+        ConsultaEntity consultaEntity = consultaRepository.findById(id).get();
+        consultaEntity.setPaciente(consultaDTO.getPaciente());
+        consultaEntity.setDentista(consultaDTO.getDentista());
+        consultaEntity.setDataConsulta(consultaDTO.getDataConsulta());
+        consultaEntity.setConsultaFinished(consultaDTO.isConsultaFinished());
+        consultaRepository.save(consultaEntity);
         return consultaDTO;
     }
 
+    private ConsultaEntity mapperDTOToEntity(ConsultaDTO consultaDTO) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ConsultaEntity consulta = objectMapper.convertValue(
+                consultaDTO,
+                ConsultaEntity.class
+        );
+        return consulta;
+    }
+
+    private ConsultaDTO mapperEntityToDTO(ConsultaEntity consultaEntity) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ConsultaDTO consulta = objectMapper.convertValue(
+                consultaEntity,
+                ConsultaDTO.class
+        );
+        return consulta;
+    }
 
 }

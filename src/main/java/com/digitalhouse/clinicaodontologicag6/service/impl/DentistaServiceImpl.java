@@ -1,14 +1,14 @@
 package com.digitalhouse.clinicaodontologicag6.service.impl;
 
 import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
-import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IDentistaRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
@@ -31,6 +31,17 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
         return dentistaDTO;
     }
 
+    public List<DentistaDTO> getByNome(String nome) {
+        List<DentistaEntity> dentistas = dentistaRepository.getByNome(nome);
+        return dentistas.stream().map(this::mapperEntityToDTO).toList();
+    }
+
+    public DentistaDTO getByMatricula(String matricula) {
+        DentistaEntity dentista = dentistaRepository.getByMatricula(matricula);
+        DentistaDTO dentistaDTO = mapperEntityToDTO(dentista);
+        return dentistaDTO;
+    }
+
     @Override
     public List<DentistaDTO> getAll() {
         List<DentistaEntity> dentistas = dentistaRepository.findAll();
@@ -38,14 +49,19 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public String delete(int id) {
-        dentistaRepository.deleteById(id);
-        return "<h1>Dentista de id " + id + " deletado !</h1>";
+    public DentistaDTO update(DentistaDTO dentistaDTO, int id) {
+        DentistaEntity dentistaEntity = dentistaRepository.findById(id).get();
+        dentistaEntity.setNome(dentistaDTO.getNome());
+        dentistaEntity.setSobrenome(dentistaDTO.getSobrenome());
+        dentistaEntity.setMatricula(dentistaDTO.getMatricula());
+        dentistaRepository.save(dentistaEntity);
+        return new DentistaDTO(dentistaEntity);
     }
 
     @Override
-    public DentistaDTO update(DentistaDTO dentistaDTO, int id) {
-        return null;
+    public String delete(int id) {
+        dentistaRepository.deleteById(id);
+        return "Dentista excluído! (ID: " + id + ")";
     }
 
     private DentistaEntity mapperDTOToEntity(DentistaDTO dentistaDTO) {
@@ -66,8 +82,4 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
         return dentista;
     }
 
-    public List<DentistaDTO> getByNome(String nome) {
-        List<DentistaEntity> dentistas = dentistaRepository.getByNome(nome);
-        return dentistas.stream().map(this::mapperEntityToDTO).toList();
-    }
 }

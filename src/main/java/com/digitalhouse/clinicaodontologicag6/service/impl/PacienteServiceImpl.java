@@ -5,10 +5,10 @@ import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
@@ -31,6 +31,22 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
         return pacienteDTO;
     }
 
+    public List<PacienteDTO> getByNome(String nome) {
+        List<PacienteEntity> pacientes = pacienteRepository.getByNome(nome);
+        return pacientes.stream().map(this::mapperEntityToDTO).toList();
+    }
+
+    public PacienteDTO getByRg(String rg) {
+        PacienteEntity paciente = pacienteRepository.getByRg(rg);
+        PacienteDTO pacienteDTO = mapperEntityToDTO(paciente);
+        return pacienteDTO;
+    }
+
+    public List<PacienteDTO> getByCidade(String cidade) {
+        List<PacienteEntity> pacientes = pacienteRepository.getByCidade(cidade);
+        return pacientes.stream().map(this::mapperEntityToDTO).toList();
+    }
+
     @Override
     public List<PacienteDTO> getAll() {
         List<PacienteEntity> pacientes = pacienteRepository.findAll();
@@ -38,14 +54,25 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
     }
 
     @Override
-    public String delete(int id) {
-        pacienteRepository.deleteById(id);
-        return "<h1>Paciente de id " + id + " deletado !</h1>";
+    public PacienteDTO update(PacienteDTO pacienteDTO, int id) {
+        PacienteEntity pacienteEntity = pacienteRepository.findById(id).get();
+        pacienteEntity.setNome(pacienteDTO.getNome());
+        pacienteEntity.setSobrenome(pacienteDTO.getSobrenome());
+        pacienteEntity.setRg(pacienteDTO.getRg());
+        pacienteEntity.setLogradouro(pacienteDTO.getLogradouro());
+        pacienteEntity.setNumero(pacienteDTO.getNumero());
+        pacienteEntity.setComplemento(pacienteDTO.getComplemento());
+        pacienteEntity.setCidade(pacienteDTO.getCidade());
+        pacienteEntity.setEstado(pacienteDTO.getEstado());
+        pacienteEntity.setCep(pacienteDTO.getCep());
+        pacienteRepository.save(pacienteEntity);
+        return new PacienteDTO(pacienteEntity);
     }
 
     @Override
-    public PacienteDTO update(PacienteDTO pacienteDTO, int id) {
-        return null;
+    public String delete(int id) {
+        pacienteRepository.deleteById(id);
+        return "Paciente excluído! (ID: " + id + ")";
     }
 
     private PacienteEntity mapperDTOToEntity(PacienteDTO pacienteDTO) {
@@ -64,10 +91,5 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
                 PacienteDTO.class
         );
         return paciente;
-    }
-
-    public List<PacienteDTO> getByNome(String nome) {
-        List<PacienteEntity> pacientes = pacienteRepository.getByNome(nome);
-        return pacientes.stream().map(this::mapperEntityToDTO).toList();
     }
 }

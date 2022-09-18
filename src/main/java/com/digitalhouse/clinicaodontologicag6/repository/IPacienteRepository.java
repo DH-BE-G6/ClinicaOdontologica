@@ -12,4 +12,10 @@ public interface IPacienteRepository extends JpaRepository<PacienteEntity, Integ
     @Query("FROM PacienteEntity p where p.nome = :nome")
     List<PacienteEntity> getByNome(String nome);
 
+    @Query("FROM PacienteEntity p where p.rg = :rg")
+    PacienteEntity getByRg(String rg);
+
+    @Query("FROM PacienteEntity p where p.cidade = :cidade")
+    List<PacienteEntity> getByCidade(String cidade);
+
 }
