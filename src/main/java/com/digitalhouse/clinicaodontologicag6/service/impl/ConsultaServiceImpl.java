@@ -101,7 +101,7 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         consultaEntity.setDentista(consultaDTO.getDentista());
         consultaEntity.setDataConsulta(consultaDTO.getDataConsulta());
         consultaRepository.save(consultaEntity);
-        return consultaDTO;
+        return new ConsultaDTO(consultaEntity);
     }
 
     private ConsultaEntity mapperDTOToEntity(ConsultaDTO consultaDTO) {
