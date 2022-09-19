@@ -1,0 +1,564 @@
+{
+	"info": {
+		"_postman_id": "7cf42deb-221e-46f6-86bc-22825f788660",
+		"name": "Back-End I",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20400404"
+	},
+	"item": [
+		{
+			"name": "Dentista",
+			"item": [
+				{
+					"name": "Dentista - Cadastro",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Jorge\",\r\n    \"sobrenome\": \"Aragão\",\r\n    \"matricula\": \"55323184\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentista/cadastrar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentista",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dentista - Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Carlos\",\r\n    \"sobrenome\": \"Aragão\",\r\n    \"matricula\": \"31741570\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentista/atualizar?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentista",
+								"atualizar"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dentista - Busca por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/dentista/buscar?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentista",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dentista - Busca por nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/dentista/buscar?nome=Carlos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentista",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Carlos"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dentista - Busca por matrícula",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/dentista/buscar?matricula=31741570",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentista",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "matricula",
+									"value": "31741570"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dentista - Busca todos cadastrados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/dentista/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentista",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dentista - Excluir cadastro",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/dentista/excluir?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentista",
+								"excluir"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "Paciente - Cadastro",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Fiona\",\r\n    \"sobrenome\": \"Apple\",\r\n    \"rg\": \"32554785\",\r\n    \"logradouro\": \"Rua Principal\",\r\n    \"numero\": \"666\",\r\n    \"complemento\": \"Apt 201\",\r\n    \"bairro\": \"Centro\",\r\n    \"cidade\": \"Três Corações\",\r\n    \"estado\": \"MG\",\r\n    \"cep\": \"36015-555\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente/cadastrar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Amy\",\r\n    \"sobrenome\": \"Lee\",\r\n    \"rg\": \"44556677\",\r\n    \"logradouro\": \"Rua dos Timbiras\",\r\n    \"numero\": \"913\",\r\n    \"complemento\": \"Apt 402\",\r\n    \"bairro\": \"Centro\",\r\n    \"cidade\": \"Belo Horizonte\",\r\n    \"estado\": \"MG\",\r\n    \"cep\": \"31777-570\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente/atualizar?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"atualizar"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Busca por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/buscar?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Busca por nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/buscar?nome=Amy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Amy"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Busca por RG",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/buscar?rg=44556677",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "rg",
+									"value": "44556677"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Busca por cidade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/buscar?cidade=Belo Horizonte",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "cidade",
+									"value": "Belo Horizonte"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Busca todos cadastrados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Excluir cadastro",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/excluir?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"excluir"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consulta",
+			"item": [
+				{
+					"name": "Consulta - Cadastro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dentista\": 1,\n    \"paciente\": 1,\n    \"dataConsulta\": \"20-02-2023 18:00\",\n    \"isConsultaFinished\": \"false\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/consulta/cadastrar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consulta",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta - Busca por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/consulta/buscar?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consulta",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta - Busca por dentista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/consulta/buscar?dentista=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consulta",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "dentista",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta - Busca por paciente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/consulta/buscar?paciente=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consulta",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "paciente",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta - Buscar por data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/consulta/buscar?data=20-02-2023 18:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consulta",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "data",
+									"value": "20-02-2023 18:00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

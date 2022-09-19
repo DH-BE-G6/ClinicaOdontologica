@@ -4,7 +4,7 @@ import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
 
 public class ValidationDentista {
 
-    public String validationDentistaVariables(DentistaDTO dentistaDTO) {
+    public String validateDentistaVariables(DentistaDTO dentistaDTO) {
         if (dentistaDTO.getNome() == null ||
             dentistaDTO.getSobrenome() == null ||
             dentistaDTO.getMatricula() == null) {
@@ -12,4 +12,5 @@ public class ValidationDentista {
         }
         return null;
     }
+
 }
