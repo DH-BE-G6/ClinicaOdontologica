@@ -31,14 +31,13 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         PacienteEntity paciente = checkPaciente(consultaDTO);
 
         ConsultaEntity consulta = ConsultaEntity.builder()
-                .id(consultaDTO.getId())
                 .dentista(dentista.getId())
                 .paciente(paciente.getId())
                 .dataConsulta(consultaDTO.getDataConsulta())
                 .build();
 
-        var consultaResponse = new ConsultaDTO(consultaRepository.save(consulta));
-        return consultaResponse;
+        var consultaCadastrada = new ConsultaDTO(consultaRepository.save(consulta));
+        return consultaCadastrada;
     }
 
     private DentistaEntity checkDentista(ConsultaDTO consultaDTO) {

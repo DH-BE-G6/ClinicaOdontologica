@@ -20,8 +20,8 @@ public class ConsultaController {
     public ResponseEntity<ConsultaDTO> create(@RequestBody ConsultaDTO consultaDTO) {
         ResponseEntity responseEntity = null;
         try {
-            consultaService.create(consultaDTO);
-            responseEntity = new ResponseEntity<>(consultaDTO, HttpStatus.CREATED);
+            ConsultaDTO consultaDTO1 = consultaService.create(consultaDTO);
+            responseEntity = new ResponseEntity<>(consultaDTO1, HttpStatus.CREATED);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
