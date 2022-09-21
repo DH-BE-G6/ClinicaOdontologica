@@ -3,7 +3,6 @@ package com.digitalhouse.clinicaodontologicag6.security;
 import com.digitalhouse.clinicaodontologicag6.service.impl.PacienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
 //                .antMatchers(HttpMethod.GET,"/paciente").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/paciente").permitAll()
+                .antMatchers("/paciente/cadastrar").permitAll()
                 .antMatchers("/consulta").hasAnyRole("ADMIN")
                 .antMatchers("/dentista").hasAnyRole("ADMIN")
                 .anyRequest()

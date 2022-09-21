@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "eb3b6cbe-c9ad-4a03-bc53-22a73f3f31d3",
+		"_postman_id": "c18b6071-b301-4134-94d8-d4a3ef9f9e39",
 		"name": "Back-End I",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19281796"
+		"_exporter_id": "19374361"
 	},
 	"item": [
 		{
@@ -217,7 +217,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Fiona\",\r\n    \"sobrenome\": \"Apple\",\r\n    \"rg\": \"32554785\",\r\n    \"logradouro\": \"Rua Principal\",\r\n    \"numero\": \"666\",\r\n    \"complemento\": \"Apt 201\",\r\n    \"bairro\": \"Centro\",\r\n    \"cidade\": \"Três Corações\",\r\n    \"estado\": \"MG\",\r\n    \"cep\": \"36015-555\"\r\n}"
+							"raw": "{   \r\n    \"nome\": \"Larissa\",\r\n    \"sobrenome\": \"Opera\",\r\n    \"username\": \"larissa@gmail.com\",\r\n    \"password\": \"larissa123\" ,\r\n    \"rg\": \"025489\",\r\n    \"logradouro\": \"Rua Principal\",\r\n    \"numero\": \"666\",\r\n    \"complemento\": \"Apt 201\",\r\n    \"bairro\": \"Centro\",\r\n    \"cidade\": \"Três Corações\",\r\n    \"estado\": \"MG\",\r\n    \"cep\": \"36015-555\",\r\n    \"pacienteRoles\": \"ROLE_USER\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/paciente/cadastrar",
@@ -298,11 +298,23 @@
 				},
 				{
 					"name": "Paciente - Busca por nome",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/paciente/buscar?nome=Amy",
+							"raw": "http://localhost:8080/paciente/buscar?nome=Larissa&pacienteRoles=USER",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -315,7 +327,11 @@
 							"query": [
 								{
 									"key": "nome",
-									"value": "Amy"
+									"value": "Larissa"
+								},
+								{
+									"key": "pacienteRoles",
+									"value": "USER"
 								}
 							]
 						}
