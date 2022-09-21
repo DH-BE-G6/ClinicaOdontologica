@@ -2,6 +2,7 @@ package com.digitalhouse.clinicaodontologicag6.entity.dto;
 
 import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 
+import com.digitalhouse.clinicaodontologicag6.enums.PacienteRoles;
 import lombok.*;
 
 @Data
@@ -22,6 +23,7 @@ public class PacienteDTO {
     private String cidade;
     private String estado;
     private String cep;
+    private PacienteRoles pacienteRoles;
 
     public PacienteDTO(PacienteEntity pacienteEntity) {
         this.id = pacienteEntity.getId();
@@ -38,4 +40,11 @@ public class PacienteDTO {
         this.cep = pacienteEntity.getCep();
     }
 
+    public PacienteRoles getPacienteRoles() {
+        return pacienteRoles;
+    }
+
+    public void setPacienteRoles(PacienteRoles pacienteRoles) {
+        this.pacienteRoles = pacienteRoles;
+    }
 }

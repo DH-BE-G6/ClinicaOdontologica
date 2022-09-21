@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IPacienteRepository extends JpaRepository<PacienteEntity, Long> {
 
@@ -18,4 +19,5 @@ public interface IPacienteRepository extends JpaRepository<PacienteEntity, Long>
     @Query("FROM PacienteEntity p where p.cidade = :cidade")
     List<PacienteEntity> getByCidade(String cidade);
 
+    Optional<PacienteEntity> findByUsername(String sobrenome);
 }

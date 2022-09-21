@@ -1,9 +1,15 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
+import com.digitalhouse.clinicaodontologicag6.enums.PacienteRoles;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 
 @Data
 @NoArgsConstructor
@@ -12,7 +18,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Pacientes")
 @SecondaryTable(name = "Enderecos")
-public class PacienteEntity {
+public class PacienteEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +32,16 @@ public class PacienteEntity {
     @Column(name = "sobrenome", nullable = false)
     @NotNull
     private String sobrenome;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PacienteRoles pacienteRoles;
 
     @Column(name = "rg", unique = true, nullable = false)
     @NotNull
@@ -61,4 +77,39 @@ public class PacienteEntity {
     @NotNull
     private String cep;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(pacienteRoles.name());
+        return Collections.singleton(grantedAuthority);
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -6,20 +6,36 @@ import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
+public class PacienteServiceImpl implements IClinicaService<PacienteDTO>, UserDetailsService {
 
     @Autowired
     private IPacienteRepository pacienteRepository;
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public PacienteDTO create(PacienteDTO pacienteDTO) {
         PacienteEntity pacienteEntity = mapperDTOToEntity(pacienteDTO);
-        pacienteEntity = pacienteRepository.save(pacienteEntity);
+        String password = passwordEncoder.encode(pacienteEntity.getPassword());
+        pacienteEntity.setPassword(password);
+
+        try {
+            pacienteEntity = pacienteRepository.save(pacienteEntity);
+        } catch (Exception e){
+            //=> tratar erro depois
+            return pacienteDTO;
+        }
+
         pacienteDTO = mapperEntityToDTO(pacienteEntity);
         return pacienteDTO;
     }
@@ -99,4 +115,22 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
         });
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return pacienteRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+    }
+
+//    public boolean createAula20092022security(PacienteDTO pacienteDTO){
+//        PacienteEntity pacienteEntity = mapperDTOToEntity(pacienteDTO);
+//        String password = passwordEncoder.encode(pacienteEntity.getPassword());
+//        pacienteEntity.setPassword(password);
+//
+//        try {
+//            pacienteRepository.save(pacienteEntity);
+//        } catch (Exception e){
+//            return false;
+//        }
+//
+//        return  true; // salvo com sucesso
+//    }
 }
