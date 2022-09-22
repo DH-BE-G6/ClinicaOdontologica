@@ -28,14 +28,7 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO>, UserDe
         PacienteEntity pacienteEntity = mapperDTOToEntity(pacienteDTO);
         String password = passwordEncoder.encode(pacienteEntity.getPassword());
         pacienteEntity.setPassword(password);
-
-        try {
-            pacienteEntity = pacienteRepository.save(pacienteEntity);
-        } catch (Exception e){
-            //=> tratar erro depois
-            return pacienteDTO;
-        }
-
+        pacienteEntity = pacienteRepository.save(pacienteEntity);
         pacienteDTO = mapperEntityToDTO(pacienteEntity);
         return pacienteDTO;
     }
@@ -75,6 +68,9 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO>, UserDe
         pacienteEntity.setNome(pacienteDTO.getNome());
         pacienteEntity.setSobrenome(pacienteDTO.getSobrenome());
         pacienteEntity.setRg(pacienteDTO.getRg());
+        pacienteEntity.setUsername(pacienteDTO.getUsername());
+        pacienteEntity.setPassword(pacienteDTO.getPassword());
+        pacienteEntity.setUserRoles(pacienteDTO.getUserRoles());
         pacienteEntity.setLogradouro(pacienteDTO.getLogradouro());
         pacienteEntity.setNumero(pacienteDTO.getNumero());
         pacienteEntity.setComplemento(pacienteDTO.getComplemento());
@@ -119,18 +115,4 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO>, UserDe
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return pacienteRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
     }
-
-//    public boolean createAula20092022security(PacienteDTO pacienteDTO){
-//        PacienteEntity pacienteEntity = mapperDTOToEntity(pacienteDTO);
-//        String password = passwordEncoder.encode(pacienteEntity.getPassword());
-//        pacienteEntity.setPassword(password);
-//
-//        try {
-//            pacienteRepository.save(pacienteEntity);
-//        } catch (Exception e){
-//            return false;
-//        }
-//
-//        return  true; // salvo com sucesso
-//    }
 }

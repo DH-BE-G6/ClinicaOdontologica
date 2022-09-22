@@ -2,17 +2,15 @@ package com.digitalhouse.clinicaodontologicag6.entity.dto;
 
 import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 
-import com.digitalhouse.clinicaodontologicag6.enums.PacienteRoles;
+import com.digitalhouse.clinicaodontologicag6.enums.UserRoles;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PacienteDTO {
 
     private Long id;
@@ -29,7 +27,7 @@ public class PacienteDTO {
     private String cidade;
     private String estado;
     private String cep;
-    private PacienteRoles pacienteRoles;
+    private UserRoles userRoles;
 
     public PacienteDTO(PacienteEntity pacienteEntity) {
         this.id = pacienteEntity.getId();
@@ -46,13 +44,14 @@ public class PacienteDTO {
         this.cidade = pacienteEntity.getCidade();
         this.estado = pacienteEntity.getEstado();
         this.cep = pacienteEntity.getCep();
+        this.userRoles = pacienteEntity.getUserRoles();
     }
 
-    public PacienteRoles getPacienteRoles() {
-        return pacienteRoles;
+    public UserRoles getUserRoles() {
+        return userRoles;
     }
 
-    public void setPacienteRoles(PacienteRoles pacienteRoles) {
-        this.pacienteRoles = pacienteRoles;
+    public void setUserRoles(UserRoles userRoles) {
+        this.userRoles = userRoles;
     }
 }

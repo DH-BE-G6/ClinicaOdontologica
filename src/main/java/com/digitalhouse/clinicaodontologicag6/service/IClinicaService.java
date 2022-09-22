@@ -1,5 +1,8 @@
 package com.digitalhouse.clinicaodontologicag6.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import java.util.List;
 
 public interface IClinicaService<T> {
@@ -9,5 +12,5 @@ public interface IClinicaService<T> {
     List<T> getAll();
     String delete(Long id);
     T update(T t, Long id);
-
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

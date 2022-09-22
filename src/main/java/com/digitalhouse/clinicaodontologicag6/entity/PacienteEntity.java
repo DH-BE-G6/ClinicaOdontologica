@@ -1,6 +1,6 @@
 package com.digitalhouse.clinicaodontologicag6.entity;
 
-import com.digitalhouse.clinicaodontologicag6.enums.PacienteRoles;
+import com.digitalhouse.clinicaodontologicag6.enums.UserRoles;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,7 +41,7 @@ public class PacienteEntity implements UserDetails {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private PacienteRoles pacienteRoles;
+    private UserRoles userRoles;
 
     @Column(name = "rg", unique = true, nullable = false)
     @NotNull
@@ -79,7 +79,7 @@ public class PacienteEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(pacienteRoles.name());
+        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRoles.name());
         return Collections.singleton(grantedAuthority);
     }
 

@@ -6,6 +6,9 @@ import com.digitalhouse.clinicaodontologicag6.repository.IDentistaRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +19,14 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     @Autowired
     private IDentistaRepository dentistaRepository;
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public DentistaDTO create(DentistaDTO dentistaDTO) {
         DentistaEntity dentistaEntity = mapperDTOToEntity(dentistaDTO);
+        String password = passwordEncoder.encode(dentistaEntity.getPassword());
+        dentistaEntity.setPassword(password);
         dentistaEntity = dentistaRepository.save(dentistaEntity);
         dentistaDTO = mapperEntityToDTO(dentistaEntity);
         return dentistaDTO;
@@ -53,6 +61,9 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
         DentistaEntity dentistaEntity = dentistaRepository.findById(id).get();
         dentistaEntity.setNome(dentistaDTO.getNome());
         dentistaEntity.setSobrenome(dentistaDTO.getSobrenome());
+        dentistaEntity.setUsername(dentistaDTO.getUsername());
+        dentistaEntity.setPassword(dentistaDTO.getPassword());
+        dentistaEntity.setUserRoles(dentistaDTO.getUserRoles());
         dentistaEntity.setMatricula(dentistaDTO.getMatricula());
         dentistaRepository.save(dentistaEntity);
         return new DentistaDTO(dentistaEntity);
@@ -85,6 +96,13 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     public DentistaEntity findById(Long dentista) {
         return dentistaRepository.findById(dentista).orElseThrow(() -> {
             throw new RuntimeException("Dentista não encontrado");
+        });
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return dentistaRepository.findByUsername(username).orElseThrow(() -> {
+            throw new UsernameNotFoundException("Usuário não encontrado");
         });
     }
 

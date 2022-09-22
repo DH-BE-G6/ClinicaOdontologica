@@ -8,6 +8,8 @@ import com.digitalhouse.clinicaodontologicag6.repository.IConsultaRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -102,6 +104,11 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         consultaEntity.setDataConsulta(consultaDTO.getDataConsulta());
         consultaRepository.save(consultaEntity);
         return new ConsultaDTO(consultaEntity);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 
     private ConsultaEntity mapperDTOToEntity(ConsultaDTO consultaDTO) {

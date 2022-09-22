@@ -1,11 +1,17 @@
 package com.digitalhouse.clinicaodontologicag6.controller;
 
 import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
+import com.digitalhouse.clinicaodontologicag6.security.AuthenticationResponse;
+import com.digitalhouse.clinicaodontologicag6.security.JwtUtil;
 import com.digitalhouse.clinicaodontologicag6.service.impl.PacienteServiceImpl;
 import com.digitalhouse.clinicaodontologicag6.validation.ValidationPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +22,12 @@ public class PacienteController {
 
     @Autowired
     private PacienteServiceImpl pacienteService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     private final ValidationPaciente validationPaciente = new ValidationPaciente();
 
@@ -84,7 +96,7 @@ public class PacienteController {
         return responseEntity;
     }
 
-    @RequestMapping(value = "/listar", method = RequestMethod.GET)
+    @RequestMapping(value = "/buscar", method = RequestMethod.GET)
     public ResponseEntity<List<PacienteDTO>> getAll() {
         ResponseEntity responseEntity = null;
         List<PacienteDTO> pacienteDTOList = pacienteService.getAll();
@@ -118,6 +130,20 @@ public class PacienteController {
             responseEntity = new ResponseEntity<>("Paciente não encontrado!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
+    }
+
+    @PostMapping("/auth")
+    public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody PacienteDTO pacienteDTO) throws Exception {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(pacienteDTO.getUsername(), pacienteDTO.getPassword())
+            );
+        } catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password", e);
+        }
+        final UserDetails userDetails = pacienteService.loadUserByUsername(pacienteDTO.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
 }

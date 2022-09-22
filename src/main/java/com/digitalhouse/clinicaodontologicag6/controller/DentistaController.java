@@ -1,11 +1,18 @@
 package com.digitalhouse.clinicaodontologicag6.controller;
 
 import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
+import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
+import com.digitalhouse.clinicaodontologicag6.security.AuthenticationResponse;
+import com.digitalhouse.clinicaodontologicag6.security.JwtUtil;
 import com.digitalhouse.clinicaodontologicag6.service.impl.DentistaServiceImpl;
 import com.digitalhouse.clinicaodontologicag6.validation.ValidationDentista;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +23,12 @@ public class DentistaController {
 
     @Autowired
     private DentistaServiceImpl dentistaService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     private final ValidationDentista validationDentista = new ValidationDentista();
 
@@ -106,6 +119,20 @@ public class DentistaController {
             responseEntity = new ResponseEntity<>("Dentista não encontrado!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
+    }
+
+    @PostMapping("/auth")
+    public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody DentistaDTO dentistaDTO) throws Exception {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(dentistaDTO.getUsername(), dentistaDTO.getPassword())
+            );
+        } catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password", e);
+        }
+        final UserDetails userDetails = dentistaService.loadUserByUsername(dentistaDTO.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
 }

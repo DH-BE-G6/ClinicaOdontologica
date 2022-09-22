@@ -1,5 +1,5 @@
 package com.digitalhouse.clinicaodontologicag6.enums;
 
-public enum PacienteRoles {
+public enum UserRoles {
     ROLE_USER, ROLE_ADMIN
 }
