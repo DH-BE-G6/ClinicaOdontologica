@@ -3,10 +3,12 @@ package com.digitalhouse.clinicaodontologicag6.service.impl;
 import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
 import com.digitalhouse.clinicaodontologicag6.repository.IDentistaRepository;
+import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
+public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDetailsService {
 
     @Autowired
     private IDentistaRepository dentistaRepository;
+
+    @Autowired
+    private IPacienteRepository pacienteRepository;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -101,9 +106,13 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return dentistaRepository.findByUsername(username).orElseThrow(() -> {
-            throw new UsernameNotFoundException("Usuário não encontrado");
-        });
+        if (pacienteRepository.findByUsername(username).isPresent()) {
+            return pacienteRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("userService: Paciente não encontrado"));
+        }
+        if (dentistaRepository.findByUsername(username).isPresent()) {
+            return dentistaRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("userService: Dentista não encontrado"));
+        }
+        return null;
     }
 
 }

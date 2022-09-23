@@ -12,5 +12,4 @@ public interface IClinicaService<T> {
     List<T> getAll();
     String delete(Long id);
     T update(T t, Long id);
-    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

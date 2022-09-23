@@ -1,6 +1,8 @@
 package com.digitalhouse.clinicaodontologicag6.security;
 
+import com.digitalhouse.clinicaodontologicag6.service.impl.DentistaServiceImpl;
 import com.digitalhouse.clinicaodontologicag6.service.impl.PacienteServiceImpl;
+import com.digitalhouse.clinicaodontologicag6.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private PacienteServiceImpl pacienteService;
+    private UserServiceImpl userService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
@@ -32,14 +34,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/paciente/cadastrar", "/paciente/auth").permitAll()
-                .antMatchers("/dentista/cadastrar", "/dentista/auth").permitAll()
-                .antMatchers(HttpMethod.PUT, "/paciente/atualizar").hasAnyRole("USER")
-                .antMatchers(HttpMethod.PUT, "/dentista/atualizar", "/consulta/atualizar").hasAnyRole("ADMIN")
-                .antMatchers("/consulta/cadastrar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE).hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/oaciente/cadastrar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/paciente/auth").permitAll()
                 .antMatchers(HttpMethod.GET, "/paciente/buscar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/paciente/listar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/paciente/atualizar").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.DELETE, "/paciente/excluir").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/dentista/cadastrar").permitAll()
+                .antMatchers(HttpMethod.POST, "/dentista/auth").permitAll()
+                .antMatchers(HttpMethod.GET, "/dentista/buscar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/dentista/listar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/dentista/atualizar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/dentista/excluir").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/consulta/cadastrar").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.GET, "/consulta/buscar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/consulta/listar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/consulta/atualizar").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/consulta/excluir").hasAnyRole("ADMIN")
                 .anyRequest()
                 .authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -54,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(pacienteService);
+        provider.setUserDetailsService(userService);
         return provider;
     }
 

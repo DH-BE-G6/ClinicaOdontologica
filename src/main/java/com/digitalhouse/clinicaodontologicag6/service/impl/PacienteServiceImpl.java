@@ -2,6 +2,7 @@ package com.digitalhouse.clinicaodontologicag6.service.impl;
 
 import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
+import com.digitalhouse.clinicaodontologicag6.repository.IDentistaRepository;
 import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,9 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO>, UserDe
 
     @Autowired
     private IPacienteRepository pacienteRepository;
+
+    @Autowired
+    private IDentistaRepository dentistaRepository;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -113,6 +117,13 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO>, UserDe
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return pacienteRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+        if (pacienteRepository.findByUsername(username).isPresent()) {
+            return pacienteRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("userService: Paciente não encontrado"));
+        }
+        if (dentistaRepository.findByUsername(username).isPresent()) {
+            return dentistaRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("userService: Dentista não encontrado"));
+        }
+        return null;
     }
+
 }

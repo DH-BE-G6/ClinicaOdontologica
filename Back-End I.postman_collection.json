@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "c18b6071-b301-4134-94d8-d4a3ef9f9e39",
+		"_postman_id": "17b50fd7-7819-41f8-9f2e-75cf9348c2ad",
 		"name": "Back-End I",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19374361"
+		"_exporter_id": "20400404"
 	},
 	"item": [
 		{
@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Batata\",\r\n    \"sobrenome\": \"Aragão\",\r\n    \"matricula\": \"55323184\"\r\n}"
+							"raw": "{\r\n    \"nome\": \"Den\",\r\n    \"sobrenome\": \"Tista\",\r\n    \"username\": \"dentista\",\r\n    \"password\": \"123mudar\",\r\n    \"userRoles\": \"ROLE_ADMIN\",\r\n    \"matricula\": \"123456y789\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/dentista/cadastrar",
@@ -40,8 +40,46 @@
 					"response": []
 				},
 				{
+					"name": "Autenticação - Dentista",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"dentista\",\n    \"password\": \"123mudar\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/dentista/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentista",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Dentista - Atualizar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -52,7 +90,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Carlos\",\r\n    \"sobrenome\": \"Aragão\",\r\n    \"matricula\": \"31741570\"\r\n}"
+							"raw": "{\r\n    \"nome\": \"Den\",\r\n    \"sobrenome\": \"Tista\",\r\n    \"username\": \"dentista\",\r\n    \"password\": \"123mudar\",\r\n    \"userRoles\": \"ROLE_ADMIN\",\r\n    \"matricula\": \"123456\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/dentista/atualizar?id=1",
@@ -78,6 +116,16 @@
 				{
 					"name": "Dentista - Busca por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGlhZ28iLCJleHAiOjE2NjM5MDA2MDIsImlhdCI6MTY2Mzg5NDYwMn0.BwST9Xr05vkRTbJ4P9Fb8FRHd6Gxs9HhTatqhXXyH4Q",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -104,10 +152,20 @@
 				{
 					"name": "Dentista - Busca por nome",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/dentista/buscar?nome=Carlos",
+							"raw": "http://localhost:8080/dentista/buscar?nome=Den",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -120,7 +178,7 @@
 							"query": [
 								{
 									"key": "nome",
-									"value": "Carlos"
+									"value": "Den"
 								}
 							]
 						}
@@ -130,10 +188,20 @@
 				{
 					"name": "Dentista - Busca por matrícula",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/dentista/buscar?matricula=31741570",
+							"raw": "http://localhost:8080/dentista/buscar?matricula=123456",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -146,7 +214,7 @@
 							"query": [
 								{
 									"key": "matricula",
-									"value": "31741570"
+									"value": "123456"
 								}
 							]
 						}
@@ -156,6 +224,16 @@
 				{
 					"name": "Dentista - Busca todos cadastrados",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -176,10 +254,20 @@
 				{
 					"name": "Dentista - Excluir cadastro",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGlhZ28iLCJleHAiOjE2NjM5MDA2MDIsImlhdCI6MTY2Mzg5NDYwMn0.BwST9Xr05vkRTbJ4P9Fb8FRHd6Gxs9HhTatqhXXyH4Q",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/dentista/excluir?id=2",
+							"raw": "http://localhost:8080/dentista/excluir?id=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -192,7 +280,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -207,6 +295,16 @@
 				{
 					"name": "Paciente - Cadastro",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -217,7 +315,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \r\n    \"nome\": \"Larissa\",\r\n    \"sobrenome\": \"Opera\",\r\n    \"username\": \"larissa@gmail.com\",\r\n    \"password\": \"larissa123\" ,\r\n    \"rg\": \"025489\",\r\n    \"logradouro\": \"Rua Principal\",\r\n    \"numero\": \"666\",\r\n    \"complemento\": \"Apt 201\",\r\n    \"bairro\": \"Centro\",\r\n    \"cidade\": \"Três Corações\",\r\n    \"estado\": \"MG\",\r\n    \"cep\": \"36015-555\",\r\n    \"pacienteRoles\": \"ROLE_USER\"\r\n}"
+							"raw": "{\r\n    \"nome\": \"Carlos\",\r\n    \"sobrenome\": \"X\",\r\n    \"username\": \"carlosx\",\r\n    \"password\": \"123mudar\",\r\n    \"userRoles\" : \"ROLE_USER\",\r\n    \"rg\": \"00885522\",\r\n    \"logradouro\": \"Rua Principal\",\r\n    \"numero\": \"666\",\r\n    \"complemento\": \"Apt 201\",\r\n    \"bairro\": \"Centro\",\r\n    \"cidade\": \"Três Corações\",\r\n    \"estado\": \"MG\",\r\n    \"cep\": \"36015-555\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/paciente/cadastrar",
@@ -235,8 +333,46 @@
 					"response": []
 				},
 				{
+					"name": "Autenticação - Paciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"thiago\",\n    \"password\": \"ninguemsabejava\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/paciente/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Paciente - Atualizar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJsb3MiLCJleHAiOjE2NjM4MTMyNzAsImlhdCI6MTY2MzgwNzI3MH0.z_nt0PYIleYFqPepFIGfqKjZKzb8cCuZXoP-xUTcAdE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -273,10 +409,20 @@
 				{
 					"name": "Paciente - Busca por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGlhZ28iLCJleHAiOjE2NjM5MDA2MDIsImlhdCI6MTY2Mzg5NDYwMn0.BwST9Xr05vkRTbJ4P9Fb8FRHd6Gxs9HhTatqhXXyH4Q",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/paciente/buscar?id=1",
+							"raw": "http://localhost:8080/paciente/buscar?id=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -289,7 +435,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -298,23 +444,21 @@
 				},
 				{
 					"name": "Paciente - Busca por nome",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/paciente/buscar?nome=Larissa&pacienteRoles=USER",
+							"raw": "http://localhost:8080/paciente/buscar?nome=Carlos",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -327,11 +471,7 @@
 							"query": [
 								{
 									"key": "nome",
-									"value": "Larissa"
-								},
-								{
-									"key": "pacienteRoles",
-									"value": "USER"
+									"value": "Carlos"
 								}
 							]
 						}
@@ -341,10 +481,20 @@
 				{
 					"name": "Paciente - Busca por RG",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/paciente/buscar?rg=44556677",
+							"raw": "http://localhost:8080/paciente/buscar?rg=12340056",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -357,7 +507,7 @@
 							"query": [
 								{
 									"key": "rg",
-									"value": "44556677"
+									"value": "12340056"
 								}
 							]
 						}
@@ -367,10 +517,20 @@
 				{
 					"name": "Paciente - Busca por cidade",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/paciente/buscar?cidade=Belo Horizonte",
+							"raw": "http://localhost:8080/paciente/buscar?cidade=Três Corações",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -383,7 +543,7 @@
 							"query": [
 								{
 									"key": "cidade",
-									"value": "Belo Horizonte"
+									"value": "Três Corações"
 								}
 							]
 						}
@@ -393,10 +553,20 @@
 				{
 					"name": "Paciente - Busca todos cadastrados",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/paciente/listar",
+							"raw": "http://localhost:8080/paciente/buscar",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -404,7 +574,7 @@
 							"port": "8080",
 							"path": [
 								"paciente",
-								"listar"
+								"buscar"
 							]
 						}
 					},
@@ -413,6 +583,16 @@
 				{
 					"name": "Paciente - Excluir cadastro",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -444,6 +624,16 @@
 				{
 					"name": "Consulta - Cadastro",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGlhZ28iLCJleHAiOjE2NjM5MDA2MDIsImlhdCI6MTY2Mzg5NDYwMn0.BwST9Xr05vkRTbJ4P9Fb8FRHd6Gxs9HhTatqhXXyH4Q",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -473,6 +663,16 @@
 				{
 					"name": "Consulta - Busca por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW50aXN0YSIsImV4cCI6MTY2MzkwMDEwMCwiaWF0IjoxNjYzODk0MTAwfQ.wnUh379M5wLviq5ZOLagw85mopw7ICqzXVRPT0vbYxM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -568,67 +768,6 @@
 								{
 									"key": "data",
 									"value": "20-02-2023 18:00"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Consulta - Deletar po ID",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/consulta/buscar?data=20-02-2023 18:00",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"consulta",
-								"buscar"
-							],
-							"query": [
-								{
-									"key": "data",
-									"value": "20-02-2023 18:00"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Consulta - Atualizar",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"dentista\": 1,\r\n    \"paciente\": 1,\r\n    \"dataConsulta\": \"20-02-2023 11:99\",\r\n    \"isConsultaFinished\": \"false\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/consulta/atualizar?id=1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"consulta",
-								"atualizar"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
 								}
 							]
 						}
