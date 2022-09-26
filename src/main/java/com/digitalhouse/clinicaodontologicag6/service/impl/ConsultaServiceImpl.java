@@ -4,6 +4,7 @@ import com.digitalhouse.clinicaodontologicag6.entity.ConsultaEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.ConsultaDTO;
+import com.digitalhouse.clinicaodontologicag6.exception.NotFoundException;
 import com.digitalhouse.clinicaodontologicag6.repository.IConsultaRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +27,7 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     private PacienteServiceImpl pacienteService;
 
     @Override
-    public ConsultaDTO create(ConsultaDTO consultaDTO) {
+    public ConsultaDTO create(ConsultaDTO consultaDTO) throws NotFoundException {
         DentistaEntity dentista = checkDentista(consultaDTO);
         PacienteEntity paciente = checkPaciente(consultaDTO);
 
@@ -40,19 +41,19 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         return consultaCadastrada;
     }
 
-    private DentistaEntity checkDentista(ConsultaDTO consultaDTO) {
+    private DentistaEntity checkDentista(ConsultaDTO consultaDTO) throws NotFoundException {
         DentistaEntity dentista = dentistaService.findById(consultaDTO.getDentista());
         if (Objects.isNull(dentista)) {
-            throw new RuntimeException("Dentista não encontrado");
+            throw new NotFoundException("Dentista não encontrado");
         }
         ConsultaEntity consulta = consultaRepository.findByConsultaByDentistaAndDataConsulta(consultaDTO.getDentista(), consultaDTO.getDataConsulta());
         if(Objects.nonNull(consulta)) {
-            throw new RuntimeException("O Dentista já possui consulta marcada para esta data");
+            throw new NotFoundException("O Dentista já possui consulta marcada para esta data");
         }
         return dentista;
     }
 
-    private PacienteEntity checkPaciente(ConsultaDTO consultaDTO) {
+    private PacienteEntity checkPaciente(ConsultaDTO consultaDTO) throws NotFoundException {
         PacienteEntity paciente = pacienteService.findById(consultaDTO.getPaciente());
         if (Objects.isNull(paciente)) {
             throw new RuntimeException("Paciente não encontrado");
