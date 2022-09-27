@@ -204,7 +204,7 @@ class DentistaControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(asJsonString(dentistaDTO)))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
