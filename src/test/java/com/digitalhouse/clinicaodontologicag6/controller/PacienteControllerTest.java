@@ -1,6 +1,5 @@
 package com.digitalhouse.clinicaodontologicag6.controller;
 
-import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
 import com.digitalhouse.clinicaodontologicag6.enums.UserRoles;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static com.digitalhouse.clinicaodontologicag6.utils.ClinicaOdontologicaUtils.asJsonString;
 import static com.digitalhouse.clinicaodontologicag6.utils.ClinicaOdontologicaUtils.objectFromString;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -28,7 +26,7 @@ class PacienteControllerTest {
 
     @Test
     @WithMockUser(username = "Batata7 test", password = "test", roles = "ADMIN")
-    void create() throws Exception{
+    void create() throws Exception {
         //=> Apenas admin pode criar paciente ok
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNome("Batata");
@@ -45,12 +43,7 @@ class PacienteControllerTest {
         pacienteDTO.setCep("00000-001");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
@@ -72,23 +65,15 @@ class PacienteControllerTest {
         pacienteDTO.setCep("00000-001");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-         mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
-               // .andReturn();
+        mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
+        // .andReturn();
 
         //String responseBody = mvcResult.getResponse().getContentAsString();
         //=> Pego o paciente cadastrado, obs: pegou o id
         //pacienteDTO = objectFromString(PacienteDTO.class, responseBody);
 
         //=> Agora sim fazer o getById
-        mockMvc.perform(MockMvcRequestBuilders.get("/paciente/buscar?id={id}", 4)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/paciente/buscar?id={id}", 4).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -111,13 +96,7 @@ class PacienteControllerTest {
         pacienteDTO.setCep("00000-002");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
@@ -125,10 +104,7 @@ class PacienteControllerTest {
         pacienteDTO = objectFromString(PacienteDTO.class, responseBody);
 
         //=> Agora sim fazer o getByNome
-        mockMvc.perform(MockMvcRequestBuilders.get("/paciente/buscar?nome={nome}", pacienteDTO.getNome())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/paciente/buscar?nome={nome}", pacienteDTO.getNome()).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -151,13 +127,7 @@ class PacienteControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
@@ -165,10 +135,7 @@ class PacienteControllerTest {
         pacienteDTO = objectFromString(PacienteDTO.class, responseBody);
 
         //=> Agora sim fazer o getByMatricula
-        mockMvc.perform(MockMvcRequestBuilders.get("/paciente/buscar?rg={rg}", pacienteDTO.getRg())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/paciente/buscar?rg={rg}", pacienteDTO.getRg()).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -190,18 +157,10 @@ class PacienteControllerTest {
         pacienteDTO.setCep("00000-004");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
 
         //=> Agora sim fazer o getAll
-        mockMvc.perform(MockMvcRequestBuilders.get("/paciente/listar")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/paciente/listar").accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -224,13 +183,7 @@ class PacienteControllerTest {
         pacienteDTO.setCep("00000-005");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
@@ -251,12 +204,7 @@ class PacienteControllerTest {
         pacienteDTO.setCep("00000-006");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/paciente/atualizar?id={id}", pacienteDTO.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.put("/paciente/atualizar?id={id}", pacienteDTO.getId()).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
@@ -278,35 +226,21 @@ class PacienteControllerTest {
         pacienteDTO.setCep("00000-008");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
         //=> Pego o dentista cadastrado, obs: pegou o id
         pacienteDTO = objectFromString(PacienteDTO.class, responseBody);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/paciente/excluir?id={id}", pacienteDTO.getId())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/paciente/excluir?id={id}", pacienteDTO.getId()).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     void createAuthenticationToken() throws Exception {
         //=> criar um novo paciente para puxar ele obs: Não ficar dependendo de outro teste(boas praticas)
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/paciente/auth")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content("{\"username\":\"Pac3\",\"password\":\"123456\"}"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.post("/paciente/auth").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content("{\"username\":\"Pac3\",\"password\":\"123456\"}")).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }

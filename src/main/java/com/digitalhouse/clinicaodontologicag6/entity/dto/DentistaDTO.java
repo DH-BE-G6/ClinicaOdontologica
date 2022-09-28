@@ -1,10 +1,12 @@
 package com.digitalhouse.clinicaodontologicag6.entity.dto;
 
 import com.digitalhouse.clinicaodontologicag6.entity.DentistaEntity;
-
 import com.digitalhouse.clinicaodontologicag6.enums.UserRoles;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor

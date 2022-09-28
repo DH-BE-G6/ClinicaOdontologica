@@ -31,11 +31,7 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         DentistaEntity dentista = checkDentista(consultaDTO);
         PacienteEntity paciente = checkPaciente(consultaDTO);
 
-        ConsultaEntity consulta = ConsultaEntity.builder()
-                .dentista(dentista.getId())
-                .paciente(paciente.getId())
-                .dataConsulta(consultaDTO.getDataConsulta())
-                .build();
+        ConsultaEntity consulta = ConsultaEntity.builder().dentista(dentista.getId()).paciente(paciente.getId()).dataConsulta(consultaDTO.getDataConsulta()).build();
 
         var consultaCadastrada = new ConsultaDTO(consultaRepository.save(consulta));
         return consultaCadastrada;
@@ -47,7 +43,7 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
             throw new NotFoundException("Dentista não encontrado");
         }
         ConsultaEntity consulta = consultaRepository.findByConsultaByDentistaAndDataConsulta(consultaDTO.getDentista(), consultaDTO.getDataConsulta());
-        if(Objects.nonNull(consulta)) {
+        if (Objects.nonNull(consulta)) {
             throw new NotFoundException("O Dentista já possui consulta marcada para esta data");
         }
         return dentista;
@@ -107,19 +103,13 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
 
     private ConsultaEntity mapperDTOToEntity(ConsultaDTO consultaDTO) {
         ObjectMapper objectMapper = new ObjectMapper();
-        ConsultaEntity consulta = objectMapper.convertValue(
-                consultaDTO,
-                ConsultaEntity.class
-        );
+        ConsultaEntity consulta = objectMapper.convertValue(consultaDTO, ConsultaEntity.class);
         return consulta;
     }
 
     private ConsultaDTO mapperEntityToDTO(ConsultaEntity consultaEntity) {
         ObjectMapper objectMapper = new ObjectMapper();
-        ConsultaDTO consulta = objectMapper.convertValue(
-                consultaEntity,
-                ConsultaDTO.class
-        );
+        ConsultaDTO consulta = objectMapper.convertValue(consultaEntity, ConsultaDTO.class);
         return consulta;
     }
 

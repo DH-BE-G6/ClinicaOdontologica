@@ -5,20 +5,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 // Classe com funções uteis, evitar repetição de codigo desnecessaria
 public class ClinicaOdontologicaUtils {
 
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
-    public  static String asJsonString(final Object obj){
-        try{
+    public static String asJsonString(final Object obj) {
+        try {
             return mapper.writeValueAsString(obj);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException();
         }
     }
 
-    public static <T> T objectFromString(Class<T> aClass, String value){
-        try{
+    public static <T> T objectFromString(Class<T> aClass, String value) {
+        try {
             return mapper.readValue(value, aClass);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException();
         }
     }

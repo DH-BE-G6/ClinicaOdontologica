@@ -1,8 +1,10 @@
 package com.digitalhouse.clinicaodontologicag6.entity.dto;
 
 import com.digitalhouse.clinicaodontologicag6.entity.ConsultaEntity;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor

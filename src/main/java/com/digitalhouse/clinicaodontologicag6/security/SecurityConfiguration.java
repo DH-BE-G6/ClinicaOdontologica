@@ -1,7 +1,5 @@
 package com.digitalhouse.clinicaodontologicag6.security;
 
-import com.digitalhouse.clinicaodontologicag6.service.impl.DentistaServiceImpl;
-import com.digitalhouse.clinicaodontologicag6.service.impl.PacienteServiceImpl;
 import com.digitalhouse.clinicaodontologicag6.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,29 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/oaciente/cadastrar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/paciente/auth").permitAll()
-                .antMatchers(HttpMethod.GET, "/paciente/buscar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/paciente/listar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/paciente/atualizar").hasAnyRole("ADMIN", "USER")
-                .antMatchers(HttpMethod.DELETE, "/paciente/excluir").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/dentista/cadastrar").permitAll()
-                .antMatchers(HttpMethod.POST, "/dentista/auth").permitAll()
-                .antMatchers(HttpMethod.GET, "/dentista/buscar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/dentista/listar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/dentista/atualizar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/dentista/excluir").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/consulta/cadastrar").hasAnyRole("ADMIN", "USER")
-                .antMatchers(HttpMethod.GET, "/consulta/buscar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/consulta/listar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/consulta/atualizar").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/consulta/excluir").hasAnyRole("ADMIN")
-                .anyRequest()
-                .authenticated().and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/oaciente/cadastrar").hasAnyRole("ADMIN").antMatchers(HttpMethod.POST, "/paciente/auth").permitAll().antMatchers(HttpMethod.GET, "/paciente/buscar").hasAnyRole("ADMIN").antMatchers(HttpMethod.GET, "/paciente/listar").hasAnyRole("ADMIN").antMatchers(HttpMethod.PUT, "/paciente/atualizar").hasAnyRole("ADMIN", "USER").antMatchers(HttpMethod.DELETE, "/paciente/excluir").hasAnyRole("ADMIN").antMatchers(HttpMethod.POST, "/dentista/cadastrar").permitAll().antMatchers(HttpMethod.POST, "/dentista/auth").permitAll().antMatchers(HttpMethod.GET, "/dentista/buscar").hasAnyRole("ADMIN").antMatchers(HttpMethod.GET, "/dentista/listar").hasAnyRole("ADMIN").antMatchers(HttpMethod.PUT, "/dentista/atualizar").hasAnyRole("ADMIN").antMatchers(HttpMethod.DELETE, "/dentista/excluir").hasAnyRole("ADMIN").antMatchers(HttpMethod.POST, "/consulta/cadastrar").hasAnyRole("ADMIN", "USER").antMatchers(HttpMethod.GET, "/consulta/buscar").hasAnyRole("ADMIN").antMatchers(HttpMethod.GET, "/consulta/listar").hasAnyRole("ADMIN").antMatchers(HttpMethod.PUT, "/consulta/atualizar").hasAnyRole("ADMIN").antMatchers(HttpMethod.DELETE, "/consulta/excluir").hasAnyRole("ADMIN").anyRequest().authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

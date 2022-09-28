@@ -4,7 +4,6 @@ import com.digitalhouse.clinicaodontologicag6.entity.PacienteEntity;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
 import com.digitalhouse.clinicaodontologicag6.exception.NotFoundException;
 import com.digitalhouse.clinicaodontologicag6.exception.UserAlreadyExistsException;
-import com.digitalhouse.clinicaodontologicag6.exception.VariableNullException;
 import com.digitalhouse.clinicaodontologicag6.repository.IDentistaRepository;
 import com.digitalhouse.clinicaodontologicag6.repository.IPacienteRepository;
 import com.digitalhouse.clinicaodontologicag6.service.IClinicaService;
@@ -22,13 +21,11 @@ import java.util.List;
 public class PacienteServiceImpl implements IClinicaService<PacienteDTO>, UserDetailsService {
 
     @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+    @Autowired
     private IPacienteRepository pacienteRepository;
-
     @Autowired
     private IDentistaRepository dentistaRepository;
-
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public PacienteDTO create(PacienteDTO pacienteDTO) throws UserAlreadyExistsException {

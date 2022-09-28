@@ -23,16 +23,13 @@ import java.util.List;
 @RequestMapping("/dentista")
 public class DentistaController {
 
+    private final FieldValidation fieldValidation = new FieldValidation();
     @Autowired
     private DentistaServiceImpl dentistaService;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private JwtUtil jwtUtil;
-
-    private final FieldValidation fieldValidation = new FieldValidation();
 
     @PostMapping("/cadastrar")
     public ResponseEntity<DentistaDTO> create(@RequestBody DentistaDTO dentistaDTO) throws VariableNullException, UserAlreadyExistsException {
@@ -84,9 +81,7 @@ public class DentistaController {
     @PostMapping("/auth")
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody DentistaDTO dentistaDTO) throws Exception {
         try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(dentistaDTO.getUsername(), dentistaDTO.getPassword())
-            );
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dentistaDTO.getUsername(), dentistaDTO.getPassword()));
         } catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }

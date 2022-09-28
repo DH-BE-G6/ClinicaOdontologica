@@ -1,6 +1,5 @@
 package com.digitalhouse.clinicaodontologicag6.controller;
 
-import com.digitalhouse.clinicaodontologicag6.entity.dto.DentistaDTO;
 import com.digitalhouse.clinicaodontologicag6.entity.dto.PacienteDTO;
 import com.digitalhouse.clinicaodontologicag6.exception.NotFoundException;
 import com.digitalhouse.clinicaodontologicag6.exception.UserAlreadyExistsException;
@@ -24,16 +23,13 @@ import java.util.List;
 @RequestMapping("/paciente")
 public class PacienteController {
 
+    private final FieldValidation fieldValidation = new FieldValidation();
     @Autowired
     private PacienteServiceImpl pacienteService;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private JwtUtil jwtUtil;
-
-    private final FieldValidation fieldValidation = new FieldValidation();
 
     @PostMapping("/cadastrar")
     public ResponseEntity<PacienteDTO> create(@RequestBody PacienteDTO pacienteDTO) throws VariableNullException, UserAlreadyExistsException {

@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static com.digitalhouse.clinicaodontologicag6.utils.ClinicaOdontologicaUtils.asJsonString;
 import static com.digitalhouse.clinicaodontologicag6.utils.ClinicaOdontologicaUtils.objectFromString;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -26,7 +25,7 @@ class DentistaControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void create() throws Exception{
+    void create() throws Exception {
         DentistaDTO dentistaDTO = new DentistaDTO();
         dentistaDTO.setNome("Batata");
         dentistaDTO.setSobrenome("Testes Dentista controler");
@@ -35,12 +34,7 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("0000000001");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
@@ -55,13 +49,7 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("0000000009");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
@@ -69,10 +57,7 @@ class DentistaControllerTest {
         dentistaDTO = objectFromString(DentistaDTO.class, responseBody);
 
         //=> Agora sim fazer o getById
-        mockMvc.perform(MockMvcRequestBuilders.get("/dentista/buscar?id={id}", dentistaDTO.getId())
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/dentista/buscar?id={id}", dentistaDTO.getId()).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -87,13 +72,7 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("0000000011");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
@@ -101,10 +80,7 @@ class DentistaControllerTest {
         dentistaDTO = objectFromString(DentistaDTO.class, responseBody);
 
         //=> Agora sim fazer o getByNome
-        mockMvc.perform(MockMvcRequestBuilders.get("/dentista/buscar?nome={nome}", dentistaDTO.getNome())
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/dentista/buscar?nome={nome}", dentistaDTO.getNome()).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -120,13 +96,7 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("5555555555");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
@@ -134,10 +104,7 @@ class DentistaControllerTest {
         dentistaDTO = objectFromString(DentistaDTO.class, responseBody);
 
         //=> Agora sim fazer o getByMatricula
-        mockMvc.perform(MockMvcRequestBuilders.get("/dentista/buscar?matricula={matricula}", dentistaDTO.getMatricula())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/dentista/buscar?matricula={matricula}", dentistaDTO.getMatricula()).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -152,18 +119,10 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("1234567890");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
 
         //=> Agora sim fazer o getAll
-        mockMvc.perform(MockMvcRequestBuilders.get("/dentista/listar")
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/dentista/listar").accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -179,13 +138,7 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("3377327730");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
@@ -199,12 +152,7 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("7777777777");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/dentista/atualizar?id={id}", dentistaDTO.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.put("/dentista/atualizar?id={id}", dentistaDTO.getId()).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
@@ -219,23 +167,14 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("5512451585");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
 
         //=> Pego o dentista cadastrado, obs: pegou o id
         dentistaDTO = objectFromString(DentistaDTO.class, responseBody);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/dentista/excluir?id={id}", dentistaDTO.getId())
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/dentista/excluir?id={id}", dentistaDTO.getId()).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -249,18 +188,8 @@ class DentistaControllerTest {
         dentistaDTO.setMatricula("9912991599");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/dentista/auth")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content("{\"username\":\"batata createAuthenticationToken test\",\"password\":\"createAuthenticationToken\"}"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.post("/dentista/auth").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content("{\"username\":\"batata createAuthenticationToken test\",\"password\":\"createAuthenticationToken\"}")).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

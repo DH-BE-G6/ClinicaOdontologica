@@ -4,8 +4,8 @@ import java.util.List;
 
 public class VariableNullException extends Exception {
 
-    private String message;
-    private List<String> variables;
+    private final String message;
+    private final List<String> variables;
 
     public VariableNullException(String message, List<String> variables) {
         this.message = message;

@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static com.digitalhouse.clinicaodontologicag6.utils.ClinicaOdontologicaUtils.asJsonString;
 import static com.digitalhouse.clinicaodontologicag6.utils.ClinicaOdontologicaUtils.objectFromString;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,13 +37,7 @@ class ConsultaControllerTest {
         dentistaDTO.setMatricula("dentista1");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
 
         PacienteDTO pacienteDTO = new PacienteDTO();
@@ -62,13 +55,7 @@ class ConsultaControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyDentista = mvcResultDentista.getResponse().getContentAsString();
         String responseBodyPaciente = mvcResultPaciente.getResponse().getContentAsString();
@@ -81,12 +68,7 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(pacienteDTO.getId());
         consultaDTO.setDataConsulta("27-09-2022 18:00");
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/consulta/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(consultaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.post("/consulta/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(consultaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated());
 
     }
 
@@ -102,13 +84,7 @@ class ConsultaControllerTest {
         dentistaDTO.setMatricula("dentista2");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNome("Paciente2");
@@ -125,13 +101,7 @@ class ConsultaControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyDentista = mvcResultDentista.getResponse().getContentAsString();
         String responseBodyPaciente = mvcResultPaciente.getResponse().getContentAsString();
@@ -144,10 +114,7 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(pacienteDTO.getId());
         consultaDTO.setDataConsulta("27-09-2022 18:00");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/buscar?id={id}", 1)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/buscar?id={id}", 1).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -163,13 +130,7 @@ class ConsultaControllerTest {
         dentistaDTO.setMatricula("dentista3");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNome("Paciente3");
@@ -186,13 +147,7 @@ class ConsultaControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyDentista = mvcResultDentista.getResponse().getContentAsString();
         String responseBodyPaciente = mvcResultPaciente.getResponse().getContentAsString();
@@ -205,10 +160,7 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(pacienteDTO.getId());
         consultaDTO.setDataConsulta("27-09-2022 18:00");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/buscar?dentista={id}", 1)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/buscar?dentista={id}", 1).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -224,13 +176,7 @@ class ConsultaControllerTest {
         dentistaDTO.setMatricula("dentista4");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNome("Paciente4");
@@ -247,13 +193,7 @@ class ConsultaControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyDentista = mvcResultDentista.getResponse().getContentAsString();
         String responseBodyPaciente = mvcResultPaciente.getResponse().getContentAsString();
@@ -266,10 +206,7 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(pacienteDTO.getId());
         consultaDTO.setDataConsulta("27-09-2022 18:00");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/buscar?paciente={id}", 1)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/buscar?paciente={id}", 1).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -285,13 +222,7 @@ class ConsultaControllerTest {
         dentistaDTO.setMatricula("dentista5");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNome("Paciente5");
@@ -308,13 +239,7 @@ class ConsultaControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyDentista = mvcResultDentista.getResponse().getContentAsString();
         String responseBodyPaciente = mvcResultPaciente.getResponse().getContentAsString();
@@ -327,10 +252,7 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(pacienteDTO.getId());
         consultaDTO.setDataConsulta("27-09-2022 18:00");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/buscar?data={id}", "27-09-2022 18:00")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/buscar?data={id}", "27-09-2022 18:00").accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -346,13 +268,7 @@ class ConsultaControllerTest {
         dentistaDTO.setMatricula("dentista6");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNome("Paciente6");
@@ -369,13 +285,7 @@ class ConsultaControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyDentista = mvcResultDentista.getResponse().getContentAsString();
         String responseBodyPaciente = mvcResultPaciente.getResponse().getContentAsString();
@@ -388,10 +298,7 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(pacienteDTO.getId());
         consultaDTO.setDataConsulta("27-09-2022 18:00");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/listar")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/consulta/listar").accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -407,13 +314,7 @@ class ConsultaControllerTest {
         dentistaDTO.setMatricula("dentista7");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNome("Paciente7");
@@ -430,13 +331,7 @@ class ConsultaControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyDentista = mvcResultDentista.getResponse().getContentAsString();
         String responseBodyPaciente = mvcResultPaciente.getResponse().getContentAsString();
@@ -449,13 +344,7 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(pacienteDTO.getId());
         consultaDTO.setDataConsulta("27-09-2022 18:00");
 
-        MvcResult mvcResultConsulta = mockMvc.perform(MockMvcRequestBuilders.post("/consulta/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(consultaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultConsulta = mockMvc.perform(MockMvcRequestBuilders.post("/consulta/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(consultaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyConsulta = mvcResultConsulta.getResponse().getContentAsString();
 
@@ -464,12 +353,7 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(2L);
         consultaDTO.setDataConsulta("27-09-2023 18:00");
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/consulta/atualizar?id={id}", consultaDTO.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(consultaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.put("/consulta/atualizar?id={id}", consultaDTO.getId()).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(consultaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -484,13 +368,7 @@ class ConsultaControllerTest {
         dentistaDTO.setMatricula("dentista8");
         dentistaDTO.setUserRoles(UserRoles.ROLE_ADMIN);
 
-        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(dentistaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultDentista = mockMvc.perform(MockMvcRequestBuilders.post("/dentista/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(dentistaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNome("Paciente8");
@@ -507,13 +385,7 @@ class ConsultaControllerTest {
         pacienteDTO.setCep("00000-003");
         pacienteDTO.setUserRoles(UserRoles.ROLE_USER);
 
-        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(pacienteDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultPaciente = mockMvc.perform(MockMvcRequestBuilders.post("/paciente/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(pacienteDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyDentista = mvcResultDentista.getResponse().getContentAsString();
         String responseBodyPaciente = mvcResultPaciente.getResponse().getContentAsString();
@@ -526,21 +398,12 @@ class ConsultaControllerTest {
         consultaDTO.setPaciente(pacienteDTO.getId());
         consultaDTO.setDataConsulta("27-09-2022 18:00");
 
-        MvcResult mvcResultConsulta = mockMvc.perform(MockMvcRequestBuilders.post("/consulta/cadastrar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(consultaDTO)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
+        MvcResult mvcResultConsulta = mockMvc.perform(MockMvcRequestBuilders.post("/consulta/cadastrar").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(asJsonString(consultaDTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
 
         String responseBodyConsulta = mvcResultConsulta.getResponse().getContentAsString();
 
         consultaDTO = objectFromString(ConsultaDTO.class, responseBodyConsulta);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/consulta/excluir?id={id}", consultaDTO.getId())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/consulta/excluir?id={id}", consultaDTO.getId()).accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

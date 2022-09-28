@@ -13,22 +13,19 @@ public class GlobalHandlerException {
 
     @ExceptionHandler(VariableNullException.class)
     public ResponseEntity<ResponseException> handlerVariableNullException(VariableNullException exception) {
-        ResponseException responseException = new ResponseException(HttpStatus.NOT_ACCEPTABLE.value(),
-                exception.getMessage(), LocalDateTime.now(), exception.getListVariable());
+        ResponseException responseException = new ResponseException(HttpStatus.NOT_ACCEPTABLE.value(), exception.getMessage(), LocalDateTime.now(), exception.getListVariable());
         return new ResponseEntity<>(responseException, HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ResponseException> handlerNotFoundException(NotFoundException exception) {
-        ResponseException responseException = new ResponseException(HttpStatus.NOT_FOUND.value(),
-                exception.getMessage(), LocalDateTime.now());
+        ResponseException responseException = new ResponseException(HttpStatus.NOT_FOUND.value(), exception.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(responseException, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ResponseException> handlerUserAlreadyExistsException(UserAlreadyExistsException exception) {
-        ResponseException responseException = new ResponseException(HttpStatus.CONFLICT.value(),
-                exception.getMessage(), LocalDateTime.now());
+        ResponseException responseException = new ResponseException(HttpStatus.CONFLICT.value(), exception.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(responseException, HttpStatus.CONFLICT);
     }
 
